@@ -166,7 +166,7 @@ export default class Root extends React.Component {
         <View style={[{ borderWidth: 0, borderColor: '#ff0000', height: '100%', width: '100%', paddingTop: isIphoneX() ? 24 : 0, paddingBottom: isIphoneX() ? 34 : 0 }, themeStyles.headerStyle]}>
           <StatusBar
 
-            barStyle={theme.name == 'dark' ? 'light-content' : 'dark-content'}
+            barStyle={theme.name == 'dark'||Platform.OS==='android' ? 'light-content' : 'dark-content'}
 
           />
           <RootStack />
