@@ -1,0 +1,34 @@
+{
+  "name": "Biu",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "events": "^1.1.1",
+    "moment": "^2.19.1",
+    "react": "16.0.0-beta.5",
+    "react-deep-force-update": "^1.1.1",
+    "react-native": "0.49.3",
+    "react-native-popup-menu": "^0.8.3",
+    "react-native-progress": "^3.4.0",
+    "react-native-safari-view": "^2.1.0",
+    "react-native-swipeout": "^2.2.2",
+    "react-native-theme": "^0.1.8",
+    "react-native-vector-icons": "^4.4.2",
+    "react-native-wkwebview-reborn": "^1.8.0",
+    "react-navigation": "^1.0.0-beta.15"
+  },
+  "devDependencies": {
+    "babel-jest": "21.2.0",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "21.2.1",
+    "react-test-renderer": "16.0.0-beta.5"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
