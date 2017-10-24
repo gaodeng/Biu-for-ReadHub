@@ -71,7 +71,7 @@ export default class TechArticlesScreen extends React.Component {
         console.log(response);
         this.setState({ dataList: response.data.data, refreshing: false })
 
-
+        loadErrorCount=false
 
       }).catch((error) => {
         console.log(error);
@@ -82,9 +82,6 @@ export default class TechArticlesScreen extends React.Component {
 
   handleLoadMore() {
 
-    /////////? lastCursor 是什么？
-
-    return;
 
     if (this.state.loading) return;
 
@@ -97,12 +94,9 @@ export default class TechArticlesScreen extends React.Component {
     }
 
 
-
     this.setState({ loading: true });
 
-    var cursor = moment(this.state.dataList[this.state.dataList.length - 1].publishDate).unix()-10*60*1000;
-
-    // alert(moment(this.state.dataList[this.state.dataList.length - 1].publishDate).unix())
+    var cursor = moment(this.state.dataList[this.state.dataList.length - 1].publishDate).unix()*1000;
     axios.get(TECH_NEWS_API, { params: { lastCursor: cursor } })
       .then((response) => {
 

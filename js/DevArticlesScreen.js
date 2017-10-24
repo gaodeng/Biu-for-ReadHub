@@ -34,7 +34,7 @@ import moment from 'moment'
 
 var DEV_ARTICLES = 'https://api.readhub.me/technews';
 
-
+var loadErrorCount = 0;
 export default class DevArticlesScreen extends React.Component {
     static navigationOptions = {
         tabBarLabel: '开发者资讯',
@@ -71,7 +71,7 @@ export default class DevArticlesScreen extends React.Component {
 
                 console.log(response);
                 this.setState({ dataList: response.data.data, refreshing: false })
-
+                loadErrorCount = 0;
 
 
             }).catch((error) => {
@@ -83,10 +83,6 @@ export default class DevArticlesScreen extends React.Component {
 
     handleLoadMore() {
 
-        /////////? lastCursor 是什么？
-
-        return;
-
         if (this.state.loading) return;
 
         if (this.state.dataList.length == 0) {
@@ -97,13 +93,11 @@ export default class DevArticlesScreen extends React.Component {
             return;
         }
 
-
-
         this.setState({ loading: true });
 
-        var cursor = moment(this.state.dataList[this.state.dataList.length - 1].publishDate).unix() - 10 * 60 * 1000;
+        var cursor = moment(this.state.dataList[this.state.dataList.length - 1].publishDate).unix() * 1000;
 
-        // alert(moment(this.state.dataList[this.state.dataList.length - 1].publishDate).unix())
+
         axios.get(DEV_ARTICLES, { params: { lastCursor: cursor } })
             .then((response) => {
 
