@@ -30,7 +30,7 @@ import Icon2 from 'react-native-vector-icons/Ionicons';
 import { isIphoneX } from './device_utils'
 
 import axios from 'axios'
-import SafariView from 'react-native-safari-view';
+import Browser from './Browser'
 import Swipeout from 'react-native-swipeout';
 import moment from 'moment'
 import Themes from './themes'
@@ -175,11 +175,7 @@ export default class SettingScreen extends React.Component {
                     <TouchableOpacity
                         style={{ flexDirection: 'row', alignItems: 'center', padding: 15 }}
                         onPress={() => {
-                            SafariView.show({
-                                url: ISSUEURL,
-
-
-                            });
+                            Browser.show(ISSUEURL, 'issue', false);
                         }}>
 
                         <Icon name="message-square" size={18} style={{ marginRight: 10, color: '#8492A6' }}></Icon>
@@ -199,11 +195,7 @@ export default class SettingScreen extends React.Component {
                     <TouchableOpacity
                         style={{ flexDirection: 'row', alignItems: 'center', padding: 15 }}
                         onPress={() => {
-                            SafariView.show({
-                                url: SRCURL,
-
-
-                            });
+                            Browser.show(SRCURL, 'source', false);
                         }}>
 
                         <Icon name="github" size={18} style={{ marginRight: 10, color: '#8492A6' }}></Icon>
