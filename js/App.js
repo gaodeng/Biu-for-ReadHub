@@ -72,13 +72,13 @@ class CustomTabBar extends React.Component {
 }
 
 const MyApp = TabNavigator({
-  TechArticles: {
-    screen: TechArticlesScreen,
-  },
+  
   Home: {
     screen: MyHomeScreen,
   },
-  
+  TechArticles: {
+    screen: TechArticlesScreen,
+  },
   DevArticles: {
     screen: DevArticlesScreen,
   },
