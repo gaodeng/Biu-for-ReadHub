@@ -34,6 +34,8 @@ import moment from 'moment'
 import bus from './bus'
 import { styles as themeStyles } from 'react-native-theme';
 
+import {StateUtils} from 'react-navigation';
+
 var swipeoutBtns = [
     {
         component: <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}><Icon2 name="ios-star" size={36} style={{ color: '#ffffff' }}></Icon2></View>,
@@ -52,13 +54,18 @@ var TOPIC_API = 'https://api.readhub.me/topic';
 
 
 export default class MyHomeScreen extends React.Component {
-    static navigationOptions = {
-        tabBarLabel: '热门话题',
-        // Note: By default the icon is only shown on iOS. Search the showIcon option below.
-        tabBarIcon: ({ tintColor }) => (
+    static navigationOptions = ({navigation}) => {
+        console.log('reloaddddddd',navigation)
+        return ({
+            // title:'coool',
 
-            <Icon name="globe" size={22} style={[styles.icon, { color: tintColor }]}></Icon>
-        ),
+            tabBarLabel: '热门话题',
+            // Note: By default the icon is only shown on iOS. Search the showIcon option below.
+            tabBarIcon: ({ tintColor }) => (
+
+                <Icon name="globe" size={22} style={[styles.icon, { color: tintColor }]}></Icon>
+            ),
+        })
     };
 
 
@@ -79,9 +86,21 @@ export default class MyHomeScreen extends React.Component {
 
         })
 
-        this.props.navigation.setParams({ isHeaderShow: Math.random() });
+        
+        bus.on("ThemeUpdate", () => {
+           
+           
+                //console.log(this.props.navigation.state)
+                this.props.navigation.setParams({});
+               
+            
+            
+
+        })
 
     }
+
+    
 
     onPressItem(item) {
 
@@ -211,6 +230,25 @@ export default class MyHomeScreen extends React.Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
+                {/* <Button
+                    
+                    onPress={() => {
+                        console.log(this.props.navigation.state);
+                        this.props.navigation.setParams({ isHeaderShow: Math.random().toString() });
+                    }}
+                    title={"set"}
+
+                />
+
+                <Button
+                    
+                    onPress={() => {
+                        console.log(this.props.navigation.state)
+
+                    }}
+                    title={"log"}
+
+                /> */}
                 <FlatList
                     data={this.state.dataList}
                     renderItem={this._renderRow}

@@ -31,17 +31,19 @@ import axios from 'axios'
 import Browser from './Browser';
 import Swipeout from 'react-native-swipeout';
 import moment from 'moment'
+import { styles as themeStyles } from 'react-native-theme';
+import bus from './bus'
 
 var DEV_ARTICLES = 'https://api.readhub.me/technews';
 
 var loadErrorCount = 0;
 export default class DevArticlesScreen extends React.Component {
-    static navigationOptions = {
+    static navigationOptions = ({navigation})=>( {
         tabBarLabel: '开发者资讯',
         tabBarIcon: ({ tintColor }) => (
             <Icon name="layers" size={22} style={[styles.icon, { color: tintColor }]}></Icon>
         ),
-    };
+    });
 
     constructor(props) {
         super(props);
@@ -55,6 +57,16 @@ export default class DevArticlesScreen extends React.Component {
     componentDidMount() {
 
         this.fetchData();
+        bus.on("ThemeUpdate", () => {
+            
+            
+                 //console.log(this.props.navigation.state)
+                 this.props.navigation.setParams({});
+                
+             
+             
+ 
+         })
     }
 
     onPressItem(item) {
@@ -133,13 +145,13 @@ export default class DevArticlesScreen extends React.Component {
                 }}
 
             >
-                <View style={[styles.listRow, index % 2 == 0 && styles.listRowAlt,]}>
+                <View style={[styles.listRow, index % 2 == 0 && styles.listRowAlt, themeStyles.listRow, index % 2 == 0 && themeStyles.listRowAlt]}>
 
                     <View style={styles.rightContainer}>
 
-                        <Text ellipsizeMode="tail" numberOfLines={2} style={styles.title}>{item.title}</Text>
+                        <Text ellipsizeMode="tail" numberOfLines={2} style={[styles.title,themeStyles.title]}>{item.title}</Text>
                         <View style={{ height: 5 }}></View>
-                        <Text ellipsizeMode="tail" numberOfLines={3} style={styles.summary}>{moment(item.publishDate).fromNow()}</Text>
+                        <Text ellipsizeMode="tail" numberOfLines={3} style={[styles.summary, themeStyles.summary]}>{moment(item.publishDate).fromNow()}</Text>
 
                     </View>
                 </View>
@@ -171,7 +183,7 @@ export default class DevArticlesScreen extends React.Component {
                 <FlatList
                     data={this.state.dataList}
                     renderItem={this._renderRow}
-                    style={styles.listView}
+                    style={[styles.listView, themeStyles.listView]}
                     keyExtractor={this._keyExtractor}
                     onEndReached={() => this.handleLoadMore()}
                     refreshing={this.state.refreshing}

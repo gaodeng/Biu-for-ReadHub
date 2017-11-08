@@ -39,7 +39,7 @@ import theme from 'react-native-theme'
 
 
 import bus from './bus'
-
+import {StateUtils} from 'react-navigation';
 
 const SRCURL = 'https://github.com/gaodeng/Biu-for-ReadHub'
 const ISSUEURL = 'https://github.com/gaodeng/Biu-for-ReadHub/issues'
@@ -82,13 +82,13 @@ export default class SettingScreen extends React.Component {
     }
 
 
-    static navigationOptions = {
+    static navigationOptions =()=>{return  {
         title: '设置',
         headerTitleStyle: { ...StyleSheet.flatten(themeStyles.headerTitleStyle) },
         headerBackTitleStyle: { ...StyleSheet.flatten(themeStyles.headerTitleStyle) },
         headerTintColor: StyleSheet.flatten(themeStyles.headerTitleStyle).color,
         headerStyle: { backgroundColor: '#ffffff', borderBottomColor: "transparent", shadowColor: 'transparent', elevation: 0, ...StyleSheet.flatten(themeStyles.headerStyle) },
-    };
+    }};
 
     handleThemeChange(value) {
         this.setState({ nightMode: !this.state.nightMode });
@@ -105,8 +105,13 @@ export default class SettingScreen extends React.Component {
 
             });
         }
-
-        bus.emit("ThemeUpdate")
+        
+        console.log(this.props.navigation.state)
+        
+        InteractionManager.runAfterInteractions(()=>{
+            this.props.navigation.setParams({});
+            bus.emit("ThemeUpdate")
+        })
     }
 
     _renderReaderModeRow() {
@@ -156,15 +161,30 @@ export default class SettingScreen extends React.Component {
         return (
 
             <ScrollView style={[{ backgroundColor: '#f5f5f5' }, themeStyles.darkBG]}>
-                {/* <Text style={{ color: '#D3DCE6', padding: 15 }} >阅读设置</Text>
+                <Text style={{ color: '#D3DCE6', padding: 15 }} >阅读设置</Text>
 
                 {this._renderReaderModeRow()}
                 {this._renderLineRow()}
-                {this._renderNightModeRow()} */}
+                {this._renderNightModeRow()}
 
+                {/* <Button
+                    
+                    onPress={() => {
+                        this.props.navigation.setParams({ isHeaderShow:'ccccool' });
+                    }}
+                    title={"set"}
 
+                />
 
+                <Button
+                    
+                    onPress={() => {
+                        console.log(this.props.navigation.state)
+                        // console.log(this.props.navigation.dispatch)
+                    }}
+                    title={"log"}
 
+                /> */}
 
                 <Text style={{ color: '#D3DCE6', padding: 15 }} >问题反馈</Text>
                 <View

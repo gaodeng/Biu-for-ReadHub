@@ -26,20 +26,23 @@ import { StackNavigator, TabNavigator, TabBarBottom, NavigationActions } from 'r
 import Icon from 'react-native-vector-icons/Feather';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import { isIphoneX } from './device_utils'
-
+import { styles as themeStyles } from 'react-native-theme';
 import axios from 'axios'
 import Browser from './Browser';
 import Swipeout from 'react-native-swipeout';
 import moment from 'moment'
+import bus from './bus'
 var TECH_NEWS_API = 'https://api.readhub.me/news';
 
-var loadErrorCount=0;
+var loadErrorCount = 0;
 export default class TechArticlesScreen extends React.Component {
-  static navigationOptions = {
-    tabBarLabel: '科技动态',
-    tabBarIcon: ({ tintColor }) => (
-      <Icon name="cpu" size={22} style={[styles.icon, { color: tintColor }]}></Icon>
-    ),
+  static navigationOptions = ({navigation}) => {
+    return {
+      tabBarLabel: '科技动态',
+      tabBarIcon: ({ tintColor }) => (
+        <Icon name="cpu" size={22} style={[styles.icon, { color: tintColor }]}></Icon>
+      ),
+    }
   };
 
   constructor(props) {
@@ -54,12 +57,22 @@ export default class TechArticlesScreen extends React.Component {
   componentDidMount() {
 
     this.fetchData();
+    bus.on("ThemeUpdate", () => {
+
+
+      //console.log(this.props.navigation.state)
+      this.props.navigation.setParams({});
+
+
+
+
+    })
   }
 
   onPressItem(item) {
 
-    Browser.show(item.url,item.title,true);
-    
+    Browser.show(item.url, item.title, true);
+
   }
 
   fetchData() {
@@ -71,7 +84,7 @@ export default class TechArticlesScreen extends React.Component {
         console.log(response);
         this.setState({ dataList: response.data.data, refreshing: false })
 
-        loadErrorCount=false
+        loadErrorCount = false
 
       }).catch((error) => {
         console.log(error);
@@ -89,21 +102,21 @@ export default class TechArticlesScreen extends React.Component {
       return;
     }
 
-    if(loadErrorCount>5){
+    if (loadErrorCount > 5) {
       return;
     }
 
 
     this.setState({ loading: true });
 
-    var cursor = moment(this.state.dataList[this.state.dataList.length - 1].publishDate).unix()*1000;
+    var cursor = moment(this.state.dataList[this.state.dataList.length - 1].publishDate).unix() * 1000;
     axios.get(TECH_NEWS_API, { params: { lastCursor: cursor } })
       .then((response) => {
 
         console.log(response);
 
         this.setState({ dataList: [...this.state.dataList, ...response.data.data], loading: false })
-        loadErrorCount=0;
+        loadErrorCount = 0;
 
       }).catch((error) => {
         console.log(error);
@@ -126,29 +139,29 @@ export default class TechArticlesScreen extends React.Component {
     return (
 
 
-    
 
-        <TouchableHighlight activeOpacity={.95}
-          onPress={() => {
-            console.log("You tapped the button!");
-            this.onPressItem(item)
-          }}
 
-        >
-          <View style={[styles.listRow, index % 2 == 0 && styles.listRowAlt,]}>
+      <TouchableHighlight activeOpacity={.95}
+        onPress={() => {
+          console.log("You tapped the button!");
+          this.onPressItem(item)
+        }}
 
-            <View style={styles.rightContainer}>
+      >
+        <View style={[styles.listRow, index % 2 == 0 && styles.listRowAlt, themeStyles.listRow, index % 2 == 0 && themeStyles.listRowAlt]}>
 
-              <Text ellipsizeMode="tail" numberOfLines={2} style={styles.title}>{item.title}</Text>
-              <View style={{ height: 5 }}></View>
-              <Text ellipsizeMode="tail" numberOfLines={3} style={styles.summary}>{moment(item.publishDate).fromNow()}</Text>
+          <View style={styles.rightContainer}>
 
-            </View>
+            <Text ellipsizeMode="tail" numberOfLines={2} style={[styles.title, themeStyles.title]}>{item.title}</Text>
+            <View style={{ height: 5 }}></View>
+            <Text ellipsizeMode="tail" numberOfLines={3} style={[styles.summary, themeStyles.summary]}>{moment(item.publishDate).fromNow()}</Text>
+
           </View>
+        </View>
 
-        </TouchableHighlight >
+      </TouchableHighlight >
 
-     
+
 
     )
 
@@ -175,7 +188,7 @@ export default class TechArticlesScreen extends React.Component {
         <FlatList
           data={this.state.dataList}
           renderItem={this._renderRow}
-          style={styles.listView}
+          style={[styles.listView, themeStyles.listView]}
           keyExtractor={this._keyExtractor}
           onEndReached={() => this.handleLoadMore()}
           refreshing={this.state.refreshing}

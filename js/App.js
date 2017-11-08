@@ -28,7 +28,7 @@ import {
   AsyncStorage
 } from 'react-native';
 
-import { StackNavigator, TabNavigator, TabBarBottom, NavigationActions } from 'react-navigation';
+import { StackNavigator, TabNavigator, TabBarBottom, NavigationActions, StateUtils } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Feather';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import { isIphoneX } from './device_utils'
@@ -56,13 +56,29 @@ import deepForceUpdate from 'react-deep-force-update';
 import bus from './bus'
 
 
+
+
+class CustomTabBar extends React.Component {
+  render() {
+    return (
+      <TabBarBottom
+        {...this.props}
+        style={{
+          backgroundColor: StyleSheet.flatten(themeStyles['tab.backgroundColor']).color, borderTopColor: "transparent", shadowColor: 'transparent', elevation: 1,
+        }}
+      />
+    )
+  }
+}
+
 const MyApp = TabNavigator({
-  Home: {
-    screen: MyHomeScreen,
-  },
   TechArticles: {
     screen: TechArticlesScreen,
   },
+  Home: {
+    screen: MyHomeScreen,
+  },
+  
   DevArticles: {
     screen: DevArticlesScreen,
   },
@@ -71,6 +87,7 @@ const MyApp = TabNavigator({
     tabBarPosition: 'bottom',
     // swipeEnabled: false,
     // animationEnabled: true, 
+    tabBarComponent: CustomTabBar,
     tabBarOptions: {
       activeTintColor: StyleSheet.flatten(themeStyles['tab.activeTintColor']).color,
       inactiveTintColor: StyleSheet.flatten(themeStyles['tab.inactiveTintColor']).color,
@@ -86,6 +103,32 @@ const MyApp = TabNavigator({
     }
 
   });
+
+
+
+
+
+
+/*
+
+
+
+*/
+
+function _renderStatusBarBg() {
+
+
+  if (Platform.OS === 'ios') {
+
+    return (<View style={{ width: '100%', height: 22, backgroundColor: '#f0f0f0' }}></View>
+
+    )
+  }
+
+}
+
+
+
 
 
 const RootStack = StackNavigator({
@@ -129,44 +172,98 @@ const RootStack = StackNavigator({
 
   });
 
-/*
 
 
 
-*/
+const defaultGetStateForAction = RootStack.router.getStateForAction;
+RootStack.router.getStateForAction = (action, state) => {
 
-function _renderStatusBarBg() {
+  if (action.type === NavigationActions.SET_PARAMS) {
 
+    if (action.key === "Home") {
+      debugger
 
-  if (Platform.OS === 'ios') {
+      var result = findRouteAndUpdatePath(action, state.routes);
+      console.log(result);
+      return { ...state, routes: result.routes }
 
-    return (<View style={{ width: '100%', height: 22, backgroundColor: '#f0f0f0' }}></View>
+      // state.routes=state.routes.slice();
 
-    )
+    }
+
   }
 
+  return defaultGetStateForAction(action, state);
+};
+
+
+function findRouteAndUpdatePath(action, routes, ) {
+
+
+  var found = false;
+
+
+  for (var i = 0; i < routes.length; i++) {
+
+    var route = routes[i]
+
+    if (route.routes) {
+      result = findRouteAndUpdatePath(action, route.routes)
+      found = result.found
+    }
+
+    if (found) {
+
+      routes = routes.slice();
+      routes[i] = { ...route }
+      routes[i].routes = result.routes;
+      return { found, routes };
+    }
+
+    if (route.key === action.key) {
+      routes = routes.slice();
+      routes[i] = { ...route, params: action.params }
+      found = true;
+      break;
+    }
+
+
+  }
+
+
+  return { found, routes }
 }
 
 
-
-
 export default class Root extends React.Component {
-
   componentDidMount() {
     theme.setRoot(this)
-    bus.on("ThemeUpdate", () => {
 
+    AsyncStorage.getItem('theme', (err, result) => {
 
-    })
+      if (result == 'dark') {
+
+        theme.active('dark');
+      } else {
+
+      }
+
+      bus.emit("ThemeUpdate")
+
+    });
   }
 
   render() {
+
+
+
+
     return (
       <MenuContext customStyles={menuStyle.menuContextStyles}>
         <View style={[{ borderWidth: 0, borderColor: '#ff0000', height: '100%', width: '100%', paddingTop: isIphoneX() ? 24 : 0, paddingBottom: isIphoneX() ? 34 : 0 }, themeStyles.headerStyle]}>
           <StatusBar
 
-            barStyle={theme.name == 'dark'||Platform.OS==='android' ? 'light-content' : 'dark-content'}
+            barStyle={theme.name == 'dark' || Platform.OS === 'android' ? 'light-content' : 'dark-content'}
 
           />
           <RootStack />
