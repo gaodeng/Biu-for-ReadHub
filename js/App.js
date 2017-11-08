@@ -180,8 +180,7 @@ RootStack.router.getStateForAction = (action, state) => {
 
   if (action.type === NavigationActions.SET_PARAMS) {
 
-    if (action.key === "Home") {
-      debugger
+    
 
       var result = findRouteAndUpdatePath(action, state.routes);
       console.log(result);
@@ -189,7 +188,7 @@ RootStack.router.getStateForAction = (action, state) => {
 
       // state.routes=state.routes.slice();
 
-    }
+    
 
   }
 
@@ -201,7 +200,6 @@ function findRouteAndUpdatePath(action, routes, ) {
 
 
   var found = false;
-
 
   for (var i = 0; i < routes.length; i++) {
 

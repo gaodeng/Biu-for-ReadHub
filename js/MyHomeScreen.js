@@ -55,7 +55,6 @@ var TOPIC_API = 'https://api.readhub.me/topic';
 
 export default class MyHomeScreen extends React.Component {
     static navigationOptions = ({navigation}) => {
-        console.log('reloaddddddd',navigation)
         return ({
             // title:'coool',
 
