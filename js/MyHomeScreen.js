@@ -33,7 +33,7 @@ import Swipeout from 'react-native-swipeout';
 import moment from 'moment'
 import bus from './bus'
 import { styles as themeStyles } from 'react-native-theme';
-
+import store from './store'
 import {StateUtils} from 'react-navigation';
 
 var swipeoutBtns = [
@@ -103,7 +103,7 @@ export default class MyHomeScreen extends React.Component {
 
     onPressItem(item) {
 
-        Browser.show(item.newsArray[0].url, item.title, true);
+        Browser.show(item.newsArray[0].url, item.title, store.readerMode);
     }
 
     fetchData() {

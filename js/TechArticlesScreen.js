@@ -32,6 +32,8 @@ import Browser from './Browser';
 import Swipeout from 'react-native-swipeout';
 import moment from 'moment'
 import bus from './bus'
+import store from './store'
+
 var TECH_NEWS_API = 'https://api.readhub.me/news';
 
 var loadErrorCount = 0;
@@ -73,7 +75,7 @@ export default class TechArticlesScreen extends React.Component {
 
   onPressItem(item) {
 
-    Browser.show(item.url, item.title, true);
+    Browser.show(item.url, item.title, store.readerMode);
 
   }
 

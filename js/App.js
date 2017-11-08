@@ -55,7 +55,7 @@ import deepForceUpdate from 'react-deep-force-update';
 
 import bus from './bus'
 
-
+import store from './store'
 
 
 class CustomTabBar extends React.Component {
@@ -72,7 +72,7 @@ class CustomTabBar extends React.Component {
 }
 
 const MyApp = TabNavigator({
-  
+
   Home: {
     screen: MyHomeScreen,
   },
@@ -180,15 +180,15 @@ RootStack.router.getStateForAction = (action, state) => {
 
   if (action.type === NavigationActions.SET_PARAMS) {
 
-    
 
-      var result = findRouteAndUpdatePath(action, state.routes);
-      console.log(result);
-      return { ...state, routes: result.routes }
 
-      // state.routes=state.routes.slice();
+    var result = findRouteAndUpdatePath(action, state.routes);
+    console.log(result);
+    return { ...state, routes: result.routes }
 
-    
+    // state.routes=state.routes.slice();
+
+
 
   }
 
@@ -249,6 +249,18 @@ export default class Root extends React.Component {
       bus.emit("ThemeUpdate")
 
     });
+    AsyncStorage.getItem('readerMode', (err, result) => {
+
+      if (result == 'false') {
+
+        store.readerMode = false;
+      } else {
+        store.readerMode = true;
+      }
+
+
+
+    });
   }
 
   render() {
@@ -258,7 +270,7 @@ export default class Root extends React.Component {
 
     return (
       <MenuContext customStyles={menuStyle.menuContextStyles}>
-        <View style={[{ borderWidth: 0, borderColor: '#ff0000', height: '100%', width: '100%',}]}>
+        <View style={[{ borderWidth: 0, borderColor: '#ff0000', height: '100%', width: '100%', }]}>
           <StatusBar
 
             barStyle={theme.name == 'dark' || Platform.OS === 'android' ? 'light-content' : 'dark-content'}

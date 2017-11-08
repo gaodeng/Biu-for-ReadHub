@@ -267,6 +267,7 @@ const styles = StyleSheet.create({
 export default {
   show(url, title, readerMode) {
 
+    
   
     SafariView.isAvailable()
       .then(available => {
@@ -281,7 +282,7 @@ export default {
         }
         SafariView.show({
           url: url,
-          readerMode: true,
+          readerMode: readerMode,
           // tintColor: "#6c6c6c",
           // barTintColor: "#eee8d5" 
           ...colors

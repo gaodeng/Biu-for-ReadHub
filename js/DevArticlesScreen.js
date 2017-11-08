@@ -33,6 +33,7 @@ import Swipeout from 'react-native-swipeout';
 import moment from 'moment'
 import { styles as themeStyles } from 'react-native-theme';
 import bus from './bus'
+import store from './store'
 
 var DEV_ARTICLES = 'https://api.readhub.me/technews';
 
@@ -71,7 +72,7 @@ export default class DevArticlesScreen extends React.Component {
 
     onPressItem(item) {
 
-        Browser.show(item.url, item.title, true);
+        Browser.show(item.url, item.title, store.readerMode);
 
     }
 

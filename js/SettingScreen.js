@@ -36,10 +36,10 @@ import moment from 'moment'
 import Themes from './themes'
 import { styles as themeStyles } from 'react-native-theme';
 import theme from 'react-native-theme'
-
+import store from './store'
 
 import bus from './bus'
-import {StateUtils} from 'react-navigation';
+import { StateUtils } from 'react-navigation';
 
 const SRCURL = 'https://github.com/gaodeng/Biu-for-ReadHub'
 const ISSUEURL = 'https://github.com/gaodeng/Biu-for-ReadHub/issues'
@@ -74,6 +74,17 @@ export default class SettingScreen extends React.Component {
 
         });
 
+        AsyncStorage.getItem('readerMode', (err, result) => {
+
+            if (result == 'false') {
+
+                this.setState({ readerMode: false })
+            } else {
+                this.setState({ readerMode: true })
+            }
+
+        });
+
 
 
 
@@ -82,13 +93,15 @@ export default class SettingScreen extends React.Component {
     }
 
 
-    static navigationOptions =()=>{return  {
-        title: '设置',
-        headerTitleStyle: { ...StyleSheet.flatten(themeStyles.headerTitleStyle) },
-        headerBackTitleStyle: { ...StyleSheet.flatten(themeStyles.headerTitleStyle) },
-        headerTintColor: StyleSheet.flatten(themeStyles.headerTitleStyle).color,
-        headerStyle: { backgroundColor: '#ffffff', borderBottomColor: "transparent", shadowColor: 'transparent', elevation: 0, ...StyleSheet.flatten(themeStyles.headerStyle) },
-    }};
+    static navigationOptions = () => {
+        return {
+            title: '设置',
+            headerTitleStyle: { ...StyleSheet.flatten(themeStyles.headerTitleStyle) },
+            headerBackTitleStyle: { ...StyleSheet.flatten(themeStyles.headerTitleStyle) },
+            headerTintColor: StyleSheet.flatten(themeStyles.headerTitleStyle).color,
+            headerStyle: { backgroundColor: '#ffffff', borderBottomColor: "transparent", shadowColor: 'transparent', elevation: 0, ...StyleSheet.flatten(themeStyles.headerStyle) },
+        }
+    };
 
     handleThemeChange(value) {
         this.setState({ nightMode: !this.state.nightMode });
@@ -105,14 +118,25 @@ export default class SettingScreen extends React.Component {
 
             });
         }
-        
+
         console.log(this.props.navigation.state)
-        
-        InteractionManager.runAfterInteractions(()=>{
+
+        InteractionManager.runAfterInteractions(() => {
             this.props.navigation.setParams({});
             bus.emit("ThemeUpdate")
         })
     }
+
+    handleReaderModeChange(value) {
+        this.setState({ readerMode: !this.state.readerMode })
+        store.readerMode = value;
+        AsyncStorage.setItem('readerMode', value?'true':'false', (error, result) => {
+
+        });
+
+    }
+
+
 
     _renderReaderModeRow() {
         if (Platform.OS === 'ios') {
@@ -124,7 +148,7 @@ export default class SettingScreen extends React.Component {
                 <Text style={{ color: '#8492A6' }}>阅读模式</Text>
                 <View style={{ flexGrow: 1 }}></View>
                 <Switch value={this.state.readerMode} tintColor={'#20A0FF'} onTintColor={'#20A0FF'}
-                    onValueChange={(value) => this.setState({ readerMode: !this.state.readerMode })} ></Switch>
+                    onValueChange={(value) => this.handleReaderModeChange(value)} ></Switch>
             </View>)
 
         }
@@ -163,8 +187,8 @@ export default class SettingScreen extends React.Component {
             <ScrollView style={[{ backgroundColor: '#f5f5f5' }, themeStyles.darkBG]}>
                 <Text style={{ color: '#D3DCE6', padding: 15 }} >阅读设置</Text>
 
-                {this._renderReaderModeRow()}
-                {this._renderLineRow()}
+                {Platform.OS==='ios'?this._renderReaderModeRow():null}
+                {Platform.OS==='ios'?this._renderLineRow():null}
                 {this._renderNightModeRow()}
 
                 {/* <Button
