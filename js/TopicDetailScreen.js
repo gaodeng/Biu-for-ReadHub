@@ -140,7 +140,7 @@ export default class TechArticlesScreen extends React.Component {
             && this.state.topicData.newsArray
             && this.state.topicData.newsArray.map((source, index, arr) => {
                 return (
-                    <TouchableOpacity key={source.url} activeOpacity={.4}
+                    <TouchableOpacity key={source.id} activeOpacity={.4}
                         onPress={() => {
                             Browser.show(source.url, source.title, store.readerMode);
                         }}
