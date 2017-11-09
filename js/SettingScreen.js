@@ -51,7 +51,7 @@ export default class SettingScreen extends React.Component {
         super(props);
         // const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-            readerMode: true,
+            readerMode: store.readerMode,
             nightMode: false,
 
         };

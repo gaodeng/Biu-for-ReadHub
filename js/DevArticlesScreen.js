@@ -152,8 +152,8 @@ export default class DevArticlesScreen extends React.Component {
 
                         <Text ellipsizeMode="tail" numberOfLines={2} style={[styles.title,themeStyles.title]}>{item.title}</Text>
                         <View style={{ height: 5 }}></View>
-                        <Text ellipsizeMode="tail" numberOfLines={3} style={[styles.summary, themeStyles.summary]}>{moment(item.publishDate).fromNow()}</Text>
-
+                        <Text ellipsizeMode="middle" numberOfLines={1} style={[styles.summary, themeStyles.summary]}>{item.siteName}{item.siteName&&item.siteName.length>0&&item.authorName&&item.authorName.length>0?' / ':'' }{item.authorName}{(item.siteName&&item.siteName.length>0)||(item.authorName&&item.authorName.length>0)?'   ':''}{moment(item.publishDate).fromNow()}</Text>
+                        
                     </View>
                 </View>
 

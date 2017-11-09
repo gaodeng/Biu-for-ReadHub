@@ -22,7 +22,7 @@ import {
     FlatList
 } from 'react-native';
 
-
+import { StackNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/Feather';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 
@@ -34,7 +34,9 @@ import moment from 'moment'
 import bus from './bus'
 import { styles as themeStyles } from 'react-native-theme';
 import store from './store'
-import {StateUtils} from 'react-navigation';
+import { StateUtils } from 'react-navigation';
+
+import TopicDetailScreen from './TopicDetailScreen'
 
 var swipeoutBtns = [
     {
@@ -53,19 +55,35 @@ var TOPIC_API = 'https://api.readhub.me/topic';
 
 
 
-export default class MyHomeScreen extends React.Component {
-    static navigationOptions = ({navigation}) => {
-        return ({
-            // title:'coool',
+class MyHomeScreen extends React.Component {
+    
 
-            tabBarLabel: '热门话题',
-            // Note: By default the icon is only shown on iOS. Search the showIcon option below.
-            tabBarIcon: ({ tintColor }) => (
+    static navigationOptions = ({ navigation }) => ({
 
-                <Icon name="globe" size={22} style={[styles.icon, { color: tintColor }]}></Icon>
-            ),
-        })
-    };
+        headerTitle: (<View style={[{ backgroundColor: 'white', position: 'absolute', left: Platform.OS === 'ios' ? -50 : 20, top: Platform.OS === 'ios' ? 8 : 14, flex: 1, flexDirection: 'row', alignItems: 'center' }, themeStyles.headerStyle]}>
+            <Text numberOfLines={1} style={{ color: '#20A0FF', fontWeight: '600', fontSize: 22, textAlign: 'left' }}>READ</Text><Text style={{ fontSize: 22, color: '#D3DCE6', }}>HUB</Text>
+        </View>),
+        // header:null,
+        headerRight: (<TouchableOpacity activeOpacity={.65}
+            onPress={() => {
+                console.log(navigation.state)
+                navigation.navigate('Setting')
+            }}
+
+        ><View style={{ margin: 10, marginRight: 15 }}><Icon2 name="md-settings" size={22} style={{ color: '#8492A6' }}></Icon2></View></TouchableOpacity>),
+        headerStyle: { backgroundColor: '#ffffff', borderBottomColor: "transparent", shadowColor: 'transparent', elevation: 0, ...StyleSheet.flatten(themeStyles.headerStyle) },
+        headerTitleStyle: { ...StyleSheet.flatten(themeStyles.headerTitleStyle) },
+        headerBackTitleStyle: { ...StyleSheet.flatten(themeStyles.headerTitleStyle) },
+        headerTintColor: StyleSheet.flatten(themeStyles.headerTitleStyle).color,
+
+        tabBarLabel: '热门话题',
+        // Note: By default the icon is only shown on iOS. Search the showIcon option below.
+        tabBarIcon: ({ tintColor }) => (
+
+            <Icon name="globe" size={22} style={[styles.icon, { color: tintColor }]}></Icon>
+        ),
+
+    })
 
 
     constructor(props) {
@@ -85,25 +103,30 @@ export default class MyHomeScreen extends React.Component {
 
         })
 
-        
+
         bus.on("ThemeUpdate", () => {
-           
-           
-                //console.log(this.props.navigation.state)
-                this.props.navigation.setParams({});
-               
-            
-            
+
+
+            //console.log(this.props.navigation.state)
+            this.props.navigation.setParams({});
+
+
+
 
         })
 
     }
 
-    
+
 
     onPressItem(item) {
 
-        Browser.show(item.newsArray[0].url, item.title, store.readerMode);
+        // Browser.show(item.newsArray[0].url, item.title, store.readerMode);
+      
+      
+
+        this.props.navigation.navigate('TopicDetail',{topic:item});
+        
     }
 
     fetchData() {
@@ -315,3 +338,38 @@ const styles = StyleSheet.create({
 
     },
 });
+
+
+export default StackNavigator({
+
+    Topic: {
+        screen: MyHomeScreen,
+    },
+
+    TopicDetail: {
+        screen: TopicDetailScreen
+    }
+
+
+}, {
+
+        cardStyle: {
+            shadowColor: 'transparent',
+
+        },
+        navigationOptions: ({ navigation }) => {
+            return ({
+                // title:'coool',
+                headerStyle: { backgroundColor: '#ffffff', borderBottomColor: "transparent", shadowColor: 'transparent', elevation: 0, ...StyleSheet.flatten(themeStyles.headerStyle) },
+                headerTitleStyle: { ...StyleSheet.flatten(themeStyles.headerTitleStyle) },
+                tabBarLabel: '热门话题',
+                // Note: By default the icon is only shown on iOS. Search the showIcon option below.
+                tabBarIcon: ({ tintColor }) => (
+
+                    <Icon name="globe" size={22} style={[styles.icon, { color: tintColor }]}></Icon>
+                ),
+            })
+        }
+
+    });
+

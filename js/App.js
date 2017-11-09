@@ -71,6 +71,32 @@ class CustomTabBar extends React.Component {
   }
 }
 
+MyHomeScreen.navigationOptions = () => {
+
+  return {
+    header: null,
+  }
+}
+
+////https://github.com/react-community/react-navigation/issues/314
+/// maxmcd commented on Mar 25
+const tabBarConfiguration = {
+  tabBarComponent: ({ jumpToIndex, ...props }) => (
+    <CustomTabBar
+      {...props}
+      jumpToIndex={(index) => {
+        if (props.navigation.state.index === index && props.navigation.state.routes[index].index > 0) {
+          //debugger;
+          props.navigation.dispatch(NavigationActions.back());
+        } else {
+          jumpToIndex(index);
+        }
+      }
+      }
+    />
+  ),
+}
+
 const MyApp = TabNavigator({
 
   Home: {
@@ -84,10 +110,12 @@ const MyApp = TabNavigator({
   },
 
 }, {
+
+    ...tabBarConfiguration,
     tabBarPosition: 'bottom',
     // swipeEnabled: false,
     // animationEnabled: true, 
-    tabBarComponent: CustomTabBar,
+    // tabBarComponent: CustomTabBar,
     tabBarOptions: {
       activeTintColor: StyleSheet.flatten(themeStyles['tab.activeTintColor']).color,
       inactiveTintColor: StyleSheet.flatten(themeStyles['tab.inactiveTintColor']).color,
@@ -183,7 +211,7 @@ RootStack.router.getStateForAction = (action, state) => {
 
 
     var result = findRouteAndUpdatePath(action, state.routes);
-    console.log(result);
+    // console.log(result);
     return { ...state, routes: result.routes }
 
     // state.routes=state.routes.slice();
