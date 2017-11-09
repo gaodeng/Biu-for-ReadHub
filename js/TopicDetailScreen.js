@@ -34,7 +34,7 @@ import moment from 'moment'
 import bus from './bus'
 import store from './store'
 
-var TECH_NEWS_API = 'https://api.readhub.me/topic';
+var TOPIC_DETAIL_API = 'https://api.readhub.me/topic';
 
 
 export default class TechArticlesScreen extends React.Component {
@@ -85,7 +85,7 @@ export default class TechArticlesScreen extends React.Component {
     fetchData() {
 
         this.setState({ refreshing: true })
-        axios.get(`${TECH_NEWS_API}/${this.props.navigation.state.params.topic.id}`)
+        axios.get(`${TOPIC_DETAIL_API}/${this.props.navigation.state.params.topic.id}`)
             .then((response) => {
 
                 console.log(response);
