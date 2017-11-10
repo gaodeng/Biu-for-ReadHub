@@ -192,7 +192,7 @@ const RootStack = StackNavigator({
 
 
 }, {
-    // headerMode: 'screen',
+     headerMode: 'screen',
     cardStyle: {
       shadowColor: 'transparent',
 
