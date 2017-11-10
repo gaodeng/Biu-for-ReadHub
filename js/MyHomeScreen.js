@@ -363,6 +363,7 @@ export default StackNavigator({
                 headerStyle: { backgroundColor: '#ffffff', borderBottomColor: "transparent", shadowColor: 'transparent', elevation: 0, ...StyleSheet.flatten(themeStyles.headerStyle) },
                 headerTitleStyle: { ...StyleSheet.flatten(themeStyles.headerTitleStyle) },
                 tabBarLabel: '热门话题',
+                headerTintColor: StyleSheet.flatten(themeStyles.headerTitleStyle).color,
                 // Note: By default the icon is only shown on iOS. Search the showIcon option below.
                 tabBarIcon: ({ tintColor }) => (
 
