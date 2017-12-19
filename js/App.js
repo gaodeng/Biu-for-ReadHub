@@ -43,6 +43,7 @@ import MyHomeScreen from './MyHomeScreen'
 import TechArticlesScreen from './TechArticlesScreen'
 import DevArticlesScreen from './DevArticlesScreen'
 import SettingScreen from './SettingScreen'
+import TopicDetailScreen from './TopicDetailScreen'
 
 import { MenuContext } from 'react-native-popup-menu';
 import menuStyle from './MenuStyle.js'
@@ -71,12 +72,6 @@ class CustomTabBar extends React.Component {
   }
 }
 
-MyHomeScreen.navigationOptions = () => {
-
-  return {
-    header: null,
-  }
-}
 
 ////https://github.com/react-community/react-navigation/issues/314
 /// maxmcd commented on Mar 25
@@ -108,6 +103,8 @@ const MyApp = TabNavigator({
   DevArticles: {
     screen: DevArticlesScreen,
   },
+
+
 
 }, {
 
@@ -188,15 +185,28 @@ const RootStack = StackNavigator({
 
   Browser: {
     screen: BrowserScreen
+  },
+  TopicDetail: {
+    screen: TopicDetailScreen
   }
 
 
 }, {
-     headerMode: 'screen',
+    headerMode: 'screen',
     cardStyle: {
       shadowColor: 'transparent',
 
     },
+
+    navigationOptions: ({ navigation }) => ({
+
+      
+      headerStyle: { backgroundColor: '#ffffff', borderBottomColor: "transparent", shadowColor: 'transparent', elevation: 0, ...StyleSheet.flatten(themeStyles.headerStyle) },
+      headerTitleStyle: { ...StyleSheet.flatten(themeStyles.headerTitleStyle) },
+      headerBackTitleStyle: { ...StyleSheet.flatten(themeStyles.headerTitleStyle) },
+      headerTintColor: StyleSheet.flatten(themeStyles.headerTitleStyle).color,
+
+    }),
 
   });
 

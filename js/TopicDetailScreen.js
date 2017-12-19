@@ -157,7 +157,7 @@ export default class TechArticlesScreen extends React.Component {
         return (
             <View style={[styles.roundPane]}>
                 <View style={[styles.listRow, styles.firstRowBorderRadius, themeStyles.listRow,]}>
-                    <Icon name="link-2" size={22} style={[styles.icon, { color: '#8492A6' }]}></Icon>
+                    <Icon name="link-2" size={16} style={[styles.icon, { color: '#00aaff' }]}></Icon>
                     <Text style={[{ marginLeft: 10 }, styles.summary, themeStyles.summary]}>新闻来源</Text>
                 </View>
                 {list}
@@ -195,7 +195,7 @@ export default class TechArticlesScreen extends React.Component {
         return (
             <View style={[styles.roundPane]}>
                 <View style={[styles.listRow, styles.firstRowBorderRadius, themeStyles.listRow,]}>
-                    <Icon name="activity" size={22} style={[styles.icon, { color: '#8492A6' }]}></Icon>
+                    <Icon name="activity" size={16} style={[styles.icon, { color: '#00aaff' }]}></Icon>
                     <Text style={[{ marginLeft: 10 }, styles.summary, themeStyles.summary]}>事件追踪</Text>
                 </View>
                 {list}

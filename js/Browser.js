@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Feather';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 
 import axios from 'axios'
@@ -38,7 +38,8 @@ import {
   LayoutAnimation,
   Platform,
   WebView,
-  Clipboard
+  Clipboard,
+  Linking,
 } from 'react-native';
 
 import theme from 'react-native-theme'
@@ -134,10 +135,22 @@ export class BrowserScreen extends React.Component {
             <Text>Copy URL</Text>
           </View>
         </MenuOption>
+
+        <MenuOption value={2} customStyles={menuStyle.optionStyles} onSelect={() => this.openInBrowser()}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Icon2 name="ios-ionic-outline" size={22} style={{ marginLeft: 8, marginRight: 8 }} />
+            <Text>Open With  Browser</Text>
+          </View>
+        </MenuOption>
       </MenuOptions>
     </Menu>
   );
 
+  openInBrowser() {
+
+    Linking.openURL(this.state.url)
+
+  }
 
   copyURLToClipboard() {
     Clipboard.setString(this.state.url);
@@ -158,7 +171,7 @@ export class BrowserScreen extends React.Component {
       backButtonEnabled: navState.canGoBack,
       forwardButtonEnabled: navState.canGoForward,
       url: navState.url,
-      pageTitle: (navState.title&&navState.title.length > 0 && navState.title != 'about:blank') ? navState.title : this.props.navigation.state.params.title,
+      pageTitle: (navState.title && navState.title.length > 0 && navState.title != 'about:blank') ? navState.title : this.props.navigation.state.params.title,
       loading: navState.loading,
       scalesPageToFit: true
     });
@@ -176,6 +189,25 @@ export class BrowserScreen extends React.Component {
 
   }
 
+  _renderProgress() {
+    return (
+
+      Platform.OS === 'ios' ?
+        <Progress.CircleSnail
+          size={26}
+          indeterminate={true}
+          thickness={2}
+          style={{ width: 26, height: 26, }}
+          color={['#f0f0f0']} />
+
+        :
+        <ActivityIndicator
+          color={['#f0f0f0']}
+          size={'small'}
+        />
+
+    )
+  }
 
 
   renderWebView() {
@@ -204,7 +236,7 @@ export class BrowserScreen extends React.Component {
         source={{ uri: this.state.urlToLoad, headers: {} }}
         renderLoading={() => {
           return (<View style={{ margin: 20, justifyContent: 'center', alignItems: 'center' }}>
-            <Progress.CircleSnail size={30} indeterminate={true} style={{ width: 30, height: 30, backgroundColor: '#00ff00' }} color={['#C0CCDA']} />
+            {this._renderProgress()}
           </View>)
         }}
         javaScriptEnabled={true}
@@ -267,8 +299,8 @@ const styles = StyleSheet.create({
 export default {
   show(url, title, readerMode) {
 
-    
-  
+
+
     SafariView.isAvailable()
       .then(available => {
 
