@@ -53,21 +53,24 @@ export default class DevArticlesScreen extends React.Component {
             dataList: [],
             refreshing: false,
         };
+        this.themeUpdateHandler = this.themeUpdateHandler.bind(this);
+    }
+
+    themeUpdateHandler() {
+
+        this.props.navigation.setParams({});
     }
 
     componentDidMount() {
 
         this.fetchData();
-        bus.on("ThemeUpdate", () => {
-            
-            
-                 //console.log(this.props.navigation.state)
-                 this.props.navigation.setParams({});
-                
-             
-             
- 
-         })
+        bus.on("ThemeUpdate", this.themeUpdateHandler)
+    }
+
+    componentWillUnmount() {
+
+        bus.removeListener("ThemeUpdate", this.themeUpdateHandler)
+
     }
 
     onPressItem(item) {

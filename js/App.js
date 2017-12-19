@@ -200,7 +200,7 @@ const RootStack = StackNavigator({
 
     navigationOptions: ({ navigation }) => ({
 
-      
+
       headerStyle: { backgroundColor: '#ffffff', borderBottomColor: "transparent", shadowColor: 'transparent', elevation: 0, ...StyleSheet.flatten(themeStyles.headerStyle) },
       headerTitleStyle: { ...StyleSheet.flatten(themeStyles.headerTitleStyle) },
       headerBackTitleStyle: { ...StyleSheet.flatten(themeStyles.headerTitleStyle) },
@@ -299,6 +299,9 @@ export default class Root extends React.Component {
 
 
     });
+
+    
+
   }
 
   render() {

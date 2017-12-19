@@ -7,7 +7,7 @@ import Icon2 from 'react-native-vector-icons/Ionicons';
 import axios from 'axios'
 import bus from './bus.js'
 import MyStyle from './SharedStyle.js'
-
+import { styles as themeStyles } from 'react-native-theme';
 import * as Progress from 'react-native-progress';
 import SafariView from 'react-native-safari-view';
 import {
@@ -64,7 +64,7 @@ export class BrowserScreen extends React.Component {
     super(props);
 
     this.state = {
-      url: DEFAULT_URL,
+      url: this.props.navigation.state.params.url,
       urlToLoad: '',
       pageTitle: '',
       backButtonEnabled: false,
@@ -88,16 +88,13 @@ export class BrowserScreen extends React.Component {
     if (navigation.state.params && navigation.state.params.ctx) {
       return ({
         title: navigation.state.params.ctx.state.pageTitle,
-        headerTintColor: 'black',
-        headerStyle: { borderBottomColor: 'transparent', backgroundColor: '#ffffff', elevation: 0, },
         headerRight: navigation.state.params.ctx.menu(),
         headerMode: 'screen',
       })
     } else {
       return ({
         title: 'Loading',
-        headerTintColor: 'black',
-        headerStyle: { borderBottomColor: 'transparent', backgroundColor: '#ffffff', elevation: 0, },
+        
         headerMode: 'screen',
         headerRight: (<View style={{
           backgroundColor: 'transparent',
@@ -107,7 +104,7 @@ export class BrowserScreen extends React.Component {
           justifyContent: 'center'
         }}>
 
-          <Icon2 name="ios-more" size={32} />
+          <Icon2 name="ios-more" size={32} style={StyleSheet.flatten(themeStyles.headerTitleStyle)}/>
         </View>)
       })
     }
@@ -120,7 +117,7 @@ export class BrowserScreen extends React.Component {
   menu = () => (
     <Menu style={[MyStyle.menu]}>
       <MenuTrigger customStyles={menuStyle.triggerStyles} >
-        <Icon2 name="ios-more" size={32} />
+        <Icon2 name="ios-more" size={32} style={StyleSheet.flatten(themeStyles.headerTitleStyle)}/>
       </MenuTrigger>
       <MenuOptions customStyles={menuStyle.optionsStyles}>
         <MenuOption value={1} customStyles={menuStyle.optionStyles} onSelect={() => this.reloadThePage()}>
@@ -260,7 +257,7 @@ export class BrowserScreen extends React.Component {
     const { goBack } = this.props.navigation;
     return (
       <View style={{ width: '100%', height: '100%', backgroundColor: '#FAFAFA' }}>
-        <View style={{ width: '100%', borderBottomColor: '#f0f0f0', borderBottomWidth: 1, backgroundColor: '#ffffff', flexDirection: 'row', alignItems: 'center', paddingTop: 0, paddingBottom: 10 }}>
+        <View style={[{ width: '100%', borderBottomColor: '#f0f0f0', borderBottomWidth: 1, backgroundColor: '#ffffff', flexDirection: 'row', alignItems: 'center', paddingTop: 0, paddingBottom: 10 },StyleSheet.flatten(themeStyles.headerStyle) ]}>
           <Text ellipsizeMode="tail" numberOfLines={1} style={{ marginLeft: 50, marginRight: 15, color: '#C0CCDA', flex: 1, textAlign: 'center' }}>{this.state.url}</Text>
           <ActivityIndicator animating={this.state.loading} style={{ marginRight: 20 }} />
         </View>

@@ -55,12 +55,12 @@ var TOPIC_API = 'https://api.readhub.me/topic';
 
 
 
-export default  class MyHomeScreen extends React.Component {
-    
+export default class MyHomeScreen extends React.Component {
+
 
     static navigationOptions = ({ navigation }) => ({
 
-      
+
 
         tabBarLabel: '热门话题',
         // Note: By default the icon is only shown on iOS. Search the showIcon option below.
@@ -79,27 +79,36 @@ export default  class MyHomeScreen extends React.Component {
             dataList: [],
             refreshing: false,
         };
+        this.themeUpdateHandler = this.themeUpdateHandler.bind(this);
+        this.showBrowser=this.showBrowser.bind(this);
     }
+
+    themeUpdateHandler() {
+
+        this.props.navigation.setParams({});
+    }
+
+    showBrowser(data){
+        this.props.navigation.navigate('Browser', data)
+    }
+
+
 
     componentDidMount() {
 
         this.fetchData();
-        bus.on('ShowBrowser', (data) => {
-            this.props.navigation.navigate('Browser', data)
+        bus.on('ShowBrowser', this.showBrowser)
 
-        })
+        bus.on("ThemeUpdate", this.themeUpdateHandler)
 
-
-        bus.on("ThemeUpdate", () => {
+    }
 
 
-            //console.log(this.props.navigation.state)
-            this.props.navigation.setParams({});
+    componentWillUnmount() {
 
+        bus.removeListener("ThemeUpdate", this.themeUpdateHandler)
+        bus.removeListener("ShowBrowser", this.showBrowser)
 
-
-
-        })
 
     }
 
@@ -108,11 +117,11 @@ export default  class MyHomeScreen extends React.Component {
     onPressItem(item) {
 
         // Browser.show(item.newsArray[0].url, item.title, store.readerMode);
-      
-      
 
-        this.props.navigation.navigate('TopicDetail',{topic:item});
-        
+
+
+        this.props.navigation.navigate('TopicDetail', { topic: item });
+
     }
 
     fetchData() {

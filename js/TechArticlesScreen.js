@@ -38,7 +38,7 @@ var TECH_NEWS_API = 'https://api.readhub.me/news';
 
 var loadErrorCount = 0;
 export default class TechArticlesScreen extends React.Component {
-  static navigationOptions = ({navigation}) => {
+  static navigationOptions = ({ navigation }) => {
     return {
       tabBarLabel: '科技动态',
       tabBarIcon: ({ tintColor }) => (
@@ -47,7 +47,7 @@ export default class TechArticlesScreen extends React.Component {
     }
   };
 
-  
+
 
   constructor(props) {
     super(props);
@@ -56,21 +56,24 @@ export default class TechArticlesScreen extends React.Component {
       dataList: [],
       refreshing: false,
     };
+    this.themeUpdateHandler = this.themeUpdateHandler.bind(this);
+  }
+
+  themeUpdateHandler() {
+
+    this.props.navigation.setParams({});
   }
 
   componentDidMount() {
 
     this.fetchData();
-    bus.on("ThemeUpdate", () => {
+    bus.on("ThemeUpdate", this.themeUpdateHandler)
+  }
 
+  componentWillUnmount() {
 
-      //console.log(this.props.navigation.state)
-      this.props.navigation.setParams({});
+    bus.removeListener("ThemeUpdate", this.themeUpdateHandler)
 
-
-
-
-    })
   }
 
   onPressItem(item) {
@@ -158,7 +161,7 @@ export default class TechArticlesScreen extends React.Component {
 
             <Text ellipsizeMode="tail" numberOfLines={2} style={[styles.title, themeStyles.title]}>{item.title}</Text>
             <View style={{ height: 5 }}></View>
-            <Text ellipsizeMode="middle" numberOfLines={1} style={[styles.summary, themeStyles.summary]}>{item.siteName}{item.siteName&&item.siteName.length>0&&item.authorName&&item.authorName.length>0?' / ':'' }{item.authorName}{(item.siteName&&item.siteName.length>0)||(item.authorName&&item.authorName.length>0)?'   ':''}{moment(item.publishDate).fromNow()}</Text>
+            <Text ellipsizeMode="middle" numberOfLines={1} style={[styles.summary, themeStyles.summary]}>{item.siteName}{item.siteName && item.siteName.length > 0 && item.authorName && item.authorName.length > 0 ? ' / ' : ''}{item.authorName}{(item.siteName && item.siteName.length > 0) || (item.authorName && item.authorName.length > 0) ? '   ' : ''}{moment(item.publishDate).fromNow()}</Text>
 
           </View>
         </View>
