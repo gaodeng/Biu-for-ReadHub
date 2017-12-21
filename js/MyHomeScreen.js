@@ -37,6 +37,7 @@ import store from './store'
 import { StateUtils } from 'react-navigation';
 
 import TopicDetailScreen from './TopicDetailScreen'
+import Share, { ShareSheet } from 'react-native-share';
 
 var swipeoutBtns = [
     {
@@ -80,7 +81,7 @@ export default class MyHomeScreen extends React.Component {
             refreshing: false,
         };
         this.themeUpdateHandler = this.themeUpdateHandler.bind(this);
-        this.showBrowser=this.showBrowser.bind(this);
+        this.showBrowser = this.showBrowser.bind(this);
     }
 
     themeUpdateHandler() {
@@ -88,7 +89,7 @@ export default class MyHomeScreen extends React.Component {
         this.props.navigation.setParams({});
     }
 
-    showBrowser(data){
+    showBrowser(data) {
         this.props.navigation.navigate('Browser', data)
     }
 
@@ -212,11 +213,37 @@ export default class MyHomeScreen extends React.Component {
                 >
                     <View style={[styles.listRow, index % 2 == 0 && styles.listRowAlt, themeStyles.listRow, index % 2 == 0 && themeStyles.listRowAlt]}>
 
-                        <View style={styles.rightContainer}>
+                        <View style={{flex:1,marginBottom:-8}}>
 
                             <Text ellipsizeMode="tail" numberOfLines={2} style={[styles.title, themeStyles.title]}>{item.title}</Text>
-                            <View style={{ height: 5 }}></View>
-                            <Text ellipsizeMode="tail" numberOfLines={3} style={[styles.summary, themeStyles.summary]}>{moment(item.publishDate).fromNow()}</Text>
+                            <View style={{flexDirection:'row',alignItems:'center',alignContent:'center',}}>
+                                <Text ellipsizeMode="tail" numberOfLines={1} style={[styles.summary, themeStyles.summary]}>{moment(item.publishDate).fromNow()}</Text>
+                                {/* <View style={{flex:1}}></View> */}
+                                <TouchableHighlight activeOpacity={.9} underlayColor={'#333333'}
+                                    style={{ borderRadius: 6 }}
+                                    onPress={() => {
+                                        console.log("You tapped the button!");
+                                        // this.onPressItem(item)
+                                        var url = `https://readhub.me/topic/${item.id}`;
+                                        let shareOptions = {
+                                            title: item.title,
+                                            message: `${item.title} - ${url}`,
+                                            url: url,
+                                            subject: "Share Link" //  for email
+                                        };
+
+
+                                        Share.open(shareOptions).catch((err) => { err && console.log(err); });
+                                    }}
+
+                                >
+
+                                    <View style={{ flexDirection: 'row', alignItems: 'center',margin:8 }}>
+                                        <Icon name="share" size={16} style={[styles.icon, { color: '#99A9BF', }]}></Icon>
+
+                                    </View>
+                                </TouchableHighlight>
+                            </View>
 
                         </View>
                     </View>

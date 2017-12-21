@@ -33,6 +33,7 @@ import Swipeout from 'react-native-swipeout';
 import moment from 'moment'
 import bus from './bus'
 import store from './store'
+import Share, { ShareSheet } from 'react-native-share';
 
 var TECH_NEWS_API = 'https://api.readhub.me/news';
 
@@ -157,12 +158,38 @@ export default class TechArticlesScreen extends React.Component {
       >
         <View style={[styles.listRow, index % 2 == 0 && styles.listRowAlt, themeStyles.listRow, index % 2 == 0 && themeStyles.listRowAlt]}>
 
-          <View style={styles.rightContainer}>
+        <View style={{flex:1,marginBottom:-8}}>
+
 
             <Text ellipsizeMode="tail" numberOfLines={2} style={[styles.title, themeStyles.title]}>{item.title}</Text>
-            <View style={{ height: 5 }}></View>
-            <Text ellipsizeMode="middle" numberOfLines={1} style={[styles.summary, themeStyles.summary]}>{item.siteName}{item.siteName && item.siteName.length > 0 && item.authorName && item.authorName.length > 0 ? ' / ' : ''}{item.authorName}{(item.siteName && item.siteName.length > 0) || (item.authorName && item.authorName.length > 0) ? '   ' : ''}{moment(item.publishDate).fromNow()}</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', alignContent: 'center', }}>
+              <Text ellipsizeMode="middle" numberOfLines={1} style={[styles.summary, themeStyles.summary]}>{item.siteName}{item.siteName && item.siteName.length > 0 && item.authorName && item.authorName.length > 0 ? ' / ' : ''}{item.authorName}{(item.siteName && item.siteName.length > 0) || (item.authorName && item.authorName.length > 0) ? '   ' : ''}{moment(item.publishDate).fromNow()}</Text>
+              {/* <View style={{flex:1}}></View> */}
+              <TouchableHighlight activeOpacity={.9} underlayColor={'#333333'}
+                style={{ borderRadius: 6 }}
+                onPress={() => {
+                  console.log("You tapped the button!");
+                  // this.onPressItem(item)
+                  var url = `https://readhub.me/topic/${item.id}`;
+                  let shareOptions = {
+                    title: item.title,
+                    message: `${item.title} - ${url}`,
+                    url: url,
+                    subject: "Share Link" //  for email
+                  };
 
+
+                  Share.open(shareOptions).catch((err) => { err && console.log(err); });
+                }}
+
+              >
+
+                <View style={{ flexDirection: 'row', alignItems: 'center', margin: 8 }}>
+                  <Icon name="share" size={16} style={[styles.icon, { color: '#99A9BF', }]}></Icon>
+
+                </View>
+              </TouchableHighlight>
+            </View>
           </View>
         </View>
 
