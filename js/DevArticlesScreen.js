@@ -164,7 +164,7 @@ export default class DevArticlesScreen extends React.Component {
                                 onPress={() => {
                                     console.log("You tapped the button!");
                                     // this.onPressItem(item)
-                                    var url = `https://readhub.me/topic/${item.id}`;
+                                    var url = item.url;
                                     let shareOptions = {
                                         title: item.title,
                                         message: `${item.title} - ${url}`,
