@@ -69,6 +69,7 @@ export default class MyHomeScreen extends React.Component {
 
             <Icon name="globe" size={22} style={[styles.icon, { color: tintColor }]}></Icon>
         ),
+        title:'热门话题'
 
     })
 

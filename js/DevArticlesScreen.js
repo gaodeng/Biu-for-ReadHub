@@ -45,6 +45,7 @@ export default class DevArticlesScreen extends React.Component {
         tabBarIcon: ({ tintColor }) => (
             <Icon name="layers" size={22} style={[styles.icon, { color: tintColor }]}></Icon>
         ),
+        title:'开发者资讯'
     });
 
     constructor(props) {

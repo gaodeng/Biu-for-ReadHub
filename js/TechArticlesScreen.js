@@ -45,6 +45,7 @@ export default class TechArticlesScreen extends React.Component {
       tabBarIcon: ({ tintColor }) => (
         <Icon name="cpu" size={22} style={[styles.icon, { color: tintColor }]}></Icon>
       ),
+      title:'科技动态'
     }
   };
 
