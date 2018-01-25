@@ -45,7 +45,7 @@ export default class TechArticlesScreen extends React.Component {
       tabBarIcon: ({ tintColor }) => (
         <Icon name="cpu" size={22} style={[styles.icon, { color: tintColor }]}></Icon>
       ),
-      title:'科技动态'
+      title: '科技动态'
     }
   };
 
@@ -159,7 +159,7 @@ export default class TechArticlesScreen extends React.Component {
       >
         <View style={[styles.listRow, index % 2 == 0 && styles.listRowAlt, themeStyles.listRow, index % 2 == 0 && themeStyles.listRowAlt]}>
 
-        <View style={{flex:1,marginBottom:-8}}>
+          <View style={{ flex: 1, marginBottom: -8 }}>
 
 
             <Text ellipsizeMode="tail" numberOfLines={2} style={[styles.title, themeStyles.title]}>{item.title}</Text>
@@ -292,7 +292,9 @@ const styles = StyleSheet.create({
   summary: {
     color: '#8898AA',
     fontSize: 12,
-    lineHeight: 18
+    lineHeight: 18,
+    flexGrow: 1,
+    flexShrink: 1,
 
 
   },

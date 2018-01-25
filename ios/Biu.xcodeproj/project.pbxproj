@@ -1271,7 +1271,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.icyarrow.biu.readhub;
 				PRODUCT_NAME = Biu;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1302,7 +1302,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.icyarrow.biu.readhub;
 				PRODUCT_NAME = Biu;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

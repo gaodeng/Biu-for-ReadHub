@@ -284,8 +284,9 @@ const styles = StyleSheet.create({
     summary: {
         color: '#8898AA',
         fontSize: 12,
-        lineHeight: 18
-
+        lineHeight: 18,
+        flexGrow:1,
+        flexShrink:1,
 
     },
 });
