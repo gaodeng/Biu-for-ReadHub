@@ -44,6 +44,7 @@ import TechArticlesScreen from './TechArticlesScreen'
 import DevArticlesScreen from './DevArticlesScreen'
 import SettingScreen from './SettingScreen'
 import TopicDetailScreen from './TopicDetailScreen'
+import BlockChainScreen from  './BlockChainScreen'
 
 import { MenuContext } from 'react-native-popup-menu';
 import menuStyle from './MenuStyle.js'
@@ -103,7 +104,9 @@ const MyApp = TabNavigator({
   DevArticles: {
     screen: DevArticlesScreen,
   },
-
+  BlockChainArticles: {
+    screen: BlockChainScreen,
+  },
 
 
 }, {
