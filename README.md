@@ -3,7 +3,7 @@
 # Biu for ReadHub
 ReadHub iOS / Android 客户端
 
-#### android 版本
+#### android 版本
 从 [Google Play Store (Android)](https://play.google.com/store/apps/details?id=com.icyarrow.biu.readhub) 下载 .
 
 直接下载 [APK](https://github.com/gaodeng/Biu-for-ReadHub/releases/download/1.5/Biu.apk) .
