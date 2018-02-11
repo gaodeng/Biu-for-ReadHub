@@ -16,6 +16,8 @@
     "react-native-popup-menu": "^0.8.3",
     "react-native-progress": "^3.4.0",
     "react-native-safari-view": "^2.1.0",
+    "react-native-share": "^1.0.23",
+    "react-native-svg-uri": "^1.2.3",
     "react-native-swipeout": "^2.2.2",
     "react-native-theme": "^0.1.8",
     "react-native-vector-icons": "^4.4.2",
@@ -24,6 +26,7 @@
   },
   "devDependencies": {
     "babel-jest": "21.2.0",
+    "babel-plugin-inline-import": "^2.0.6",
     "babel-preset-react-native": "4.0.0",
     "jest": "21.2.1",
     "react-test-renderer": "16.0.0-beta.5"

@@ -34,16 +34,37 @@ import moment from 'moment'
 import { styles as themeStyles } from 'react-native-theme';
 import bus from './bus'
 import store from './store'
-
+import SvgUri from 'react-native-svg-uri';
+import SvgData from './svg_data'
 var BLOCKCHAIN_ARTICLES = 'https://api.readhub.me/blockchain';
 
 var loadErrorCount = 0;
 export default class DevArticlesScreen extends React.Component {
-    static navigationOptions = ({navigation})=>( {
+    static navigationOptions = ({ navigation }) => ({
         tabBarLabel: '区块链快讯',
-        tabBarIcon: ({ tintColor }) => (
-            <Icon name="bold" size={22} style={[styles.icon, { color: tintColor }]}></Icon>
-        ),
+        tabBarIcon: ({ focused, tintColor }) => {
+            return (
+                <View style={{ width: 30, height: 30 }}>
+                    {focused?(
+                <SvgUri
+                        width="30"
+                        height="30"
+                        svgXmlData={SvgData.blockchain}
+
+                    />):(
+                  <SvgUri
+                        width="30"
+                        height="30"
+                        svgXmlData={SvgData.blockchain_gray}
+
+                    />
+                    )}
+            </View>
+
+
+            )
+
+        },
     });
 
     constructor(props) {
@@ -91,10 +112,10 @@ export default class DevArticlesScreen extends React.Component {
 
 
             }).catch((error) => {
-            console.log(error);
-            this.setState({ refreshing: false })
+                console.log(error);
+                this.setState({ refreshing: false })
 
-        });
+            });
     }
 
     handleLoadMore() {
@@ -123,12 +144,12 @@ export default class DevArticlesScreen extends React.Component {
                 loadErrorCount = 0;
 
             }).catch((error) => {
-            console.log(error);
-            loadErrorCount++;
+                console.log(error);
+                loadErrorCount++;
 
-            this.setState({ loading: false })
+                this.setState({ loading: false })
 
-        });
+            });
     }
 
 
@@ -143,19 +164,19 @@ export default class DevArticlesScreen extends React.Component {
         return (
 
             <TouchableHighlight activeOpacity={.95}
-                                onPress={() => {
-                                    console.log("You tapped the button!");
-                                    this.onPressItem(item)
-                                }}
+                onPress={() => {
+                    console.log("You tapped the button!");
+                    this.onPressItem(item)
+                }}
 
             >
                 <View style={[styles.listRow, index % 2 == 0 && styles.listRowAlt, themeStyles.listRow, index % 2 == 0 && themeStyles.listRowAlt]}>
 
                     <View style={styles.rightContainer}>
 
-                        <Text ellipsizeMode="tail" numberOfLines={2} style={[styles.title,themeStyles.title]}>{item.title}</Text>
+                        <Text ellipsizeMode="tail" numberOfLines={2} style={[styles.title, themeStyles.title]}>{item.title}</Text>
                         <View style={{ height: 5 }}></View>
-                        <Text ellipsizeMode="middle" numberOfLines={1} style={[styles.summary, themeStyles.summary]}>{item.siteName}{item.siteName&&item.siteName.length>0&&item.authorName&&item.authorName.length>0?' / ':'' }{item.authorName}{(item.siteName&&item.siteName.length>0)||(item.authorName&&item.authorName.length>0)?'   ':''}{moment(item.publishDate).fromNow()}</Text>
+                        <Text ellipsizeMode="middle" numberOfLines={1} style={[styles.summary, themeStyles.summary]}>{item.siteName}{item.siteName && item.siteName.length > 0 && item.authorName && item.authorName.length > 0 ? ' / ' : ''}{item.authorName}{(item.siteName && item.siteName.length > 0) || (item.authorName && item.authorName.length > 0) ? '   ' : ''}{moment(item.publishDate).fromNow()}</Text>
 
                     </View>
                 </View>
