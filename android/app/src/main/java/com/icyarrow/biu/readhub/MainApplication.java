@@ -13,7 +13,10 @@ import com.facebook.soloader.SoLoader;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainApplication extends Application implements ReactApplication {
+import cl.json.RNSharePackage;
+import cl.json.ShareApplication;
+
+public class MainApplication extends Application implements ReactApplication, ShareApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
@@ -26,7 +29,8 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new SvgPackage(),
-            new VectorIconsPackage()
+            new VectorIconsPackage(),
+              new RNSharePackage()
       );
     }
 
@@ -45,5 +49,10 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+  }
+
+  @Override
+  public String getFileProviderAuthority() {
+    return "${applicationId}.provider";
   }
 }
