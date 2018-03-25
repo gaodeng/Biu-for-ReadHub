@@ -3,6 +3,7 @@ package com.icyarrow.biu.readhub;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import cl.json.RNSharePackage;
 import com.horcrux.svg.SvgPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
@@ -30,7 +31,7 @@ public class MainApplication extends Application implements ReactApplication, Sh
           new MainReactPackage(),
             new SvgPackage(),
             new VectorIconsPackage(),
-              new RNSharePackage()
+            new RNSharePackage()
       );
     }
 

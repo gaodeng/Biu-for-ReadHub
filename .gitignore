@@ -53,3 +53,4 @@ buck-out/
 */fastlane/screenshots
 
 android/app/my-release-key.keystore
+android/app/bin
