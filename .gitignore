@@ -54,3 +54,5 @@ buck-out/
 
 android/app/my-release-key.keystore
 android/app/bin
+android/.project
+android/app/.project
