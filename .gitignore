@@ -51,6 +51,9 @@ buck-out/
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
+# Bundle artifact
+*.jsbundle
+
 
 android/app/my-release-key.keystore
 android/app/bin

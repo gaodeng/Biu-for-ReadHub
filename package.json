@@ -10,9 +10,9 @@
     "axios": "^0.16.2",
     "events": "^1.1.1",
     "moment": "^2.19.3",
-    "react": "^16.0.0-beta.5",
+    "react": "^16.3.1",
     "react-deep-force-update": "^1.1.1",
-    "react-native": "0.49.3",
+    "react-native": "^0.55.2",
     "react-native-popup-menu": "^0.8.3",
     "react-native-progress": "^3.4.0",
     "react-native-safari-view": "^2.1.0",
@@ -23,7 +23,7 @@
     "react-native-theme": "^0.1.8",
     "react-native-vector-icons": "^4.4.2",
     "react-native-wkwebview-reborn": "1.10.0",
-    "react-navigation": "^1.0.0-beta.19"
+    "react-navigation": "^1.5.11"
   },
   "devDependencies": {
     "babel-jest": "21.2.0",
