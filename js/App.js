@@ -44,8 +44,9 @@ import TechArticlesScreen from './TechArticlesScreen'
 import DevArticlesScreen from './DevArticlesScreen'
 import SettingScreen from './SettingScreen'
 import TopicDetailScreen from './TopicDetailScreen'
+import JobDetailScreen from './JobDetailScreen'
 import BlockChainScreen from  './BlockChainScreen'
-
+import JobsScreen from  './JobsScreen'
 import { MenuContext } from 'react-native-popup-menu';
 import menuStyle from './MenuStyle.js'
 import { BrowserScreen } from './Browser'
@@ -107,10 +108,13 @@ const MyApp = TabNavigator({
   BlockChainArticles: {
     screen: BlockChainScreen,
   },
-
+  Jobs: {
+    screen: JobsScreen,
+  },
 
 }, {
-
+    // initialRouteName: 'Jobs',
+    lazy: true,
     ...tabBarConfiguration,
     tabBarPosition: 'bottom',
     // swipeEnabled: false,
@@ -191,6 +195,9 @@ const RootStack = StackNavigator({
   },
   TopicDetail: {
     screen: TopicDetailScreen
+  },
+  JobDetail: {
+    screen: JobDetailScreen
   }
 
 

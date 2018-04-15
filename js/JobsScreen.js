@@ -36,26 +36,25 @@ import bus from './bus'
 import store from './store'
 import SvgUri from 'react-native-svg-uri';
 import SvgData from './svg_data'
-var BLOCKCHAIN_ARTICLES = 'https://api.readhub.me/blockchain';
-
+var BLOCKCHAIN_ARTICLES = 'https://api.readhub.me/jobs';
 var loadErrorCount = 0;
-export default class BlockChainScreen extends React.Component {
+export default class JobsScreen extends React.Component {
     static navigationOptions = ({ navigation }) => ({
-        tabBarLabel: '区块链快讯',
+        tabBarLabel: '招聘行情',
         tabBarIcon: ({ focused, tintColor }) => {
             return (
                 <View style={{ width: 30, height: 30 }}>
                     {focused?(
                 <SvgUri
-                        width="30"
-                        height="30"
-                        svgXmlData={SvgData.blockchain}
+                        width="26"
+                        height="26"
+                        svgXmlData={SvgData.chair}
 
                     />):(
                   <SvgUri
-                        width="30"
-                        height="30"
-                        svgXmlData={SvgData.blockchain_gray}
+                        width="26"
+                        height="26"
+                        svgXmlData={SvgData.chair_gray}
 
                     />
                     )}
@@ -96,7 +95,7 @@ export default class BlockChainScreen extends React.Component {
 
     onPressItem(item) {
 
-        Browser.show(item.url, item.title, store.readerMode);
+        this.props.navigation.navigate('JobDetail', { job: item });
 
     }
 
@@ -174,9 +173,11 @@ export default class BlockChainScreen extends React.Component {
 
                     <View style={styles.rightContainer}>
 
-                        <Text ellipsizeMode="tail" numberOfLines={2} style={[styles.title, themeStyles.title]}>{item.title}</Text>
+                        <Text ellipsizeMode="tail" numberOfLines={2} style={[styles.title, themeStyles.title]}>{item.jobTitle}</Text>
                         <View style={{ height: 5 }}></View>
-                        <Text ellipsizeMode="middle" numberOfLines={1} style={[styles.summary, themeStyles.summary]}>{item.siteName}{item.siteName && item.siteName.length > 0 && item.authorName && item.authorName.length > 0 ? ' / ' : ''}{item.authorName}{(item.siteName && item.siteName.length > 0) || (item.authorName && item.authorName.length > 0) ? '   ' : ''}{moment(item.publishDate).fromNow()}</Text>
+                        <View><Text style={[styles.summary, themeStyles.summary,{fontSize:14}]}>{Object.keys(item.cities).join(',')}等地共更新了 {item.jobCount} 个职位，待遇集中在 {item.salaryLower}-{item.salaryUpper}k，一般要求 {item.experienceLower}-{item.experienceUpper} 年经验</Text></View>
+                        
+                        <Text ellipsizeMode="middle" numberOfLines={1} style={[styles.summary, themeStyles.summary,{marginTop:5,fontSize:11}]}>{item.siteName}{item.siteName && item.siteName.length > 0 && item.authorName && item.authorName.length > 0 ? ' / ' : ''}{item.authorName}{(item.siteName && item.siteName.length > 0) || (item.authorName && item.authorName.length > 0) ? '   ' : ''}{moment(item.createdAt).format('LL')}</Text>
 
                     </View>
                 </View>
