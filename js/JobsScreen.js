@@ -43,7 +43,7 @@ export default class JobsScreen extends React.Component {
         tabBarLabel: '招聘行情',
         tabBarIcon: ({ focused, tintColor }) => {
             return (
-                <View style={{ width: 30, height: 30 }}>
+                <View style={{ width: 30, height: 30,alignItems:'center' }}>
                     {focused?(
                 <SvgUri
                         width="26"
