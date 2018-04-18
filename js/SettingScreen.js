@@ -76,7 +76,7 @@ export default class SettingScreen extends React.Component {
 
         AsyncStorage.getItem('readerMode', (err, result) => {
 
-            if (result == 'false') {
+            if (result == 'false'||!result) {
 
                 this.setState({ readerMode: false })
             } else {
