@@ -298,7 +298,6 @@ export default class Root extends React.Component {
 
     });
     AsyncStorage.getItem('readerMode', (err, result) => {
-      debugger;
       if (result == 'false'||!result) {
 
         store.readerMode = false;
