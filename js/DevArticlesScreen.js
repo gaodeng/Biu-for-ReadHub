@@ -45,7 +45,21 @@ export default class DevArticlesScreen extends React.Component {
         tabBarIcon: ({ tintColor }) => (
             <Icon name="layers" size={22} style={[styles.icon, { color: tintColor }]}></Icon>
         ),
-        title:'开发者资讯'
+        title: '开发者资讯',
+        tabBarOptions: {
+            activeTintColor: StyleSheet.flatten(themeStyles['tab.activeTintColor']).color,
+            inactiveTintColor: StyleSheet.flatten(themeStyles['tab.inactiveTintColor']).color,
+            showIcon: true,
+            showLabel: Platform.OS === 'android' ? false : true,
+            labelStyle: { marginBottom: 5 },
+            indicatorStyle: {
+                backgroundColor: 'transparent'
+            },
+            style: {
+                backgroundColor: StyleSheet.flatten(themeStyles['tab.backgroundColor']).color, borderTopColor: "transparent", shadowColor: 'transparent', elevation: 1,
+            },
+
+        }
     });
 
     constructor(props) {
@@ -137,7 +151,7 @@ export default class DevArticlesScreen extends React.Component {
 
 
 
-    _keyExtractor = (item, index) => item.id;
+    _keyExtractor = (item, index) => item.id + '';
     _renderRow = ({ item, index }) => {
 
         var firstRow = index == 0;
@@ -285,8 +299,8 @@ const styles = StyleSheet.create({
         color: '#8898AA',
         fontSize: 12,
         lineHeight: 18,
-        flexGrow:1,
-        flexShrink:1,
+        flexGrow: 1,
+        flexShrink: 1,
 
     },
 });

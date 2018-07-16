@@ -28,7 +28,7 @@ import {
   AsyncStorage
 } from 'react-native';
 
-import { StackNavigator, TabNavigator, TabBarBottom, NavigationActions, StateUtils } from 'react-navigation';
+import { StackNavigator, TabNavigator, TabBarBottom, NavigationActions, StateUtils, createBottomTabNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Feather';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import { isIphoneX } from './device_utils'
@@ -45,8 +45,8 @@ import DevArticlesScreen from './DevArticlesScreen'
 import SettingScreen from './SettingScreen'
 import TopicDetailScreen from './TopicDetailScreen'
 import JobDetailScreen from './JobDetailScreen'
-import BlockChainScreen from  './BlockChainScreen'
-import JobsScreen from  './JobsScreen'
+import BlockChainScreen from './BlockChainScreen'
+import JobsScreen from './JobsScreen'
 import { MenuContext } from 'react-native-popup-menu';
 import menuStyle from './MenuStyle.js'
 import { BrowserScreen } from './Browser'
@@ -94,7 +94,7 @@ const tabBarConfiguration = {
   ),
 }
 
-const MyApp = TabNavigator({
+const MyApp = createBottomTabNavigator({
 
   Home: {
     screen: MyHomeScreen,
@@ -114,25 +114,13 @@ const MyApp = TabNavigator({
 
 }, {
     // initialRouteName: 'Jobs',
-    lazy: true,
-    ...tabBarConfiguration,
+    lazy: false,
+    // ...tabBarConfiguration,
     tabBarPosition: 'bottom',
     // swipeEnabled: false,
-    // animationEnabled: true, 
+    animationEnabled: false,
     // tabBarComponent: CustomTabBar,
-    tabBarOptions: {
-      activeTintColor: StyleSheet.flatten(themeStyles['tab.activeTintColor']).color,
-      inactiveTintColor: StyleSheet.flatten(themeStyles['tab.inactiveTintColor']).color,
-      showIcon: true,
-      labelStyle: { marginBottom: 5 },
-      indicatorStyle: {
-        backgroundColor: 'transparent'
-      },
-      style: {
-        backgroundColor: StyleSheet.flatten(themeStyles['tab.backgroundColor']).color, borderTopColor: "transparent", shadowColor: 'transparent', elevation: 1,
-      },
 
-    }
 
   });
 
@@ -167,10 +155,31 @@ const RootStack = StackNavigator({
   MainTab: {
     screen: MyApp,
     navigationOptions: ({ navigation }) => ({
+      
+      headerTitle: () => {
+        let title='';
 
-      headerTitle: (<View style={[{ backgroundColor: 'white', position: 'absolute', left: Platform.OS === 'ios' ? -50 : 20, top: Platform.OS === 'ios' ? 8 : 14, flex: 1, flexDirection: 'row', alignItems: 'center' }, themeStyles.headerStyle]}>
-        <Text numberOfLines={1} style={{ color: '#20A0FF', fontWeight: '600', fontSize: 22, textAlign: 'left' }}>READ</Text><Text style={{ fontSize: 22, color: '#D3DCE6', }}>HUB</Text>
-      </View>),
+        if(navigation.state.index===0){
+          title='热门话题'
+        }else if(navigation.state.index===1){
+          title='科技动态'
+        }
+        else if(navigation.state.index===2){
+          title='开发者资讯'
+        }
+        else if(navigation.state.index===3){
+          title='区块链资讯'
+        }
+        else if(navigation.state.index===4){
+          title='招聘行情'
+        }
+        // alert(JSON.stringify(navigation))
+        let titleText=<Text style={{ color: '#D3DCE6',}}>  -  {title}</Text>
+        return (<View style={[{ backgroundColor: 'white', position: 'absolute', left: Platform.OS === 'ios' ? -50 : 20, top: Platform.OS === 'ios' ? 8 : 14, flex: 1, flexDirection: 'row', alignItems: 'center' }, themeStyles.headerStyle]}>
+          <Text numberOfLines={1} style={{ color: '#20A0FF', fontWeight: '600', fontSize: 22, textAlign: 'left' }}>READ</Text><Text style={{ fontSize: 22, color: '#D3DCE6', }}>HUB</Text>
+          {Platform.OS==='android'?titleText:null}
+        </View>)
+      },
       // header:null,
       headerRight: (<TouchableOpacity activeOpacity={.65}
         onPress={() => {
@@ -298,7 +307,7 @@ export default class Root extends React.Component {
 
     });
     AsyncStorage.getItem('readerMode', (err, result) => {
-      if (result == 'false'||!result) {
+      if (result == 'false' || !result) {
 
         store.readerMode = false;
       } else {
@@ -309,7 +318,7 @@ export default class Root extends React.Component {
 
     });
 
-    
+
 
   }
 

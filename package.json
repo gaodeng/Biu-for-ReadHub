@@ -23,7 +23,7 @@
     "react-native-theme": "^0.1.8",
     "react-native-vector-icons": "^4.4.2",
     "react-native-wkwebview-reborn": "1.10.0",
-    "react-navigation": "^1.5.11"
+    "react-navigation": "^2.6.2"
   },
   "devDependencies": {
     "babel-jest": "21.2.0",

@@ -69,7 +69,22 @@ export default class MyHomeScreen extends React.Component {
 
             <Icon name="globe" size={22} style={[styles.icon, { color: tintColor }]}></Icon>
         ),
-        title:'热门话题'
+        title: '热门话题',
+        tabBarOptions: {
+            activeTintColor: StyleSheet.flatten(themeStyles['tab.activeTintColor']).color,
+            inactiveTintColor: StyleSheet.flatten(themeStyles['tab.inactiveTintColor']).color,
+            showIcon: true,
+            showLabel: Platform.OS === 'android' ? false : true,
+            labelStyle: { marginBottom: 5 },
+            indicatorStyle: {
+                backgroundColor: 'transparent'
+            },
+            style: {
+                backgroundColor: StyleSheet.flatten(themeStyles['tab.backgroundColor']).color, borderTopColor: "transparent", shadowColor: 'transparent', elevation: 1,
+            },
+
+        }
+
 
     })
 
@@ -187,7 +202,7 @@ export default class MyHomeScreen extends React.Component {
 
 
 
-    _keyExtractor = (item, index) => item.id;
+    _keyExtractor = (item, index) => item.id + '';
     _renderRow = ({ item, index }) => {
 
         var firstRow = index == 0;
@@ -214,10 +229,10 @@ export default class MyHomeScreen extends React.Component {
                 >
                     <View style={[styles.listRow, index % 2 == 0 && styles.listRowAlt, themeStyles.listRow, index % 2 == 0 && themeStyles.listRowAlt]}>
 
-                        <View style={{flex:1,marginBottom:-8}}>
+                        <View style={{ flex: 1, marginBottom: -8 }}>
 
                             <Text ellipsizeMode="tail" numberOfLines={2} style={[styles.title, themeStyles.title]}>{item.title}</Text>
-                            <View style={{flexDirection:'row',alignItems:'center',alignContent:'center',}}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', alignContent: 'center', }}>
                                 <Text ellipsizeMode="tail" numberOfLines={1} style={[styles.summary, themeStyles.summary]}>{moment(item.publishDate).fromNow()}</Text>
                                 {/* <View style={{flex:1}}></View> */}
                                 <TouchableHighlight activeOpacity={.9} underlayColor={'#333333'}
@@ -239,7 +254,7 @@ export default class MyHomeScreen extends React.Component {
 
                                 >
 
-                                    <View style={{ flexDirection: 'row', alignItems: 'center',margin:8 }}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', margin: 8 }}>
                                         <Icon name="share" size={16} style={[styles.icon, { color: '#99A9BF', }]}></Icon>
 
                                     </View>
@@ -357,8 +372,8 @@ const styles = StyleSheet.create({
         color: '#8898AA',
         fontSize: 12,
         lineHeight: 18,
-        flexGrow:1,
-        flexShrink:1,
+        flexGrow: 1,
+        flexShrink: 1,
 
     },
 });

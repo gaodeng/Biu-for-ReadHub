@@ -45,7 +45,21 @@ export default class TechArticlesScreen extends React.Component {
       tabBarIcon: ({ tintColor }) => (
         <Icon name="cpu" size={22} style={[styles.icon, { color: tintColor }]}></Icon>
       ),
-      title: '科技动态'
+      title: '科技动态',
+      tabBarOptions: {
+        activeTintColor: StyleSheet.flatten(themeStyles['tab.activeTintColor']).color,
+        inactiveTintColor: StyleSheet.flatten(themeStyles['tab.inactiveTintColor']).color,
+        showIcon: true,
+        showLabel: Platform.OS === 'android' ? false : true,
+        labelStyle: { marginBottom: 5 },
+        indicatorStyle: {
+          backgroundColor: 'transparent'
+        },
+        style: {
+          backgroundColor: StyleSheet.flatten(themeStyles['tab.backgroundColor']).color, borderTopColor: "transparent", shadowColor: 'transparent', elevation: 1,
+        },
+
+      }
     }
   };
 
@@ -140,7 +154,7 @@ export default class TechArticlesScreen extends React.Component {
 
 
 
-  _keyExtractor = (item, index) => item.id;
+  _keyExtractor = (item, index) => item.id + '';
   _renderRow = ({ item, index }) => {
 
     var firstRow = index == 0;

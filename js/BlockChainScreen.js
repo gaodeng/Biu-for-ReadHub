@@ -42,29 +42,44 @@ var loadErrorCount = 0;
 export default class BlockChainScreen extends React.Component {
     static navigationOptions = ({ navigation }) => ({
         tabBarLabel: '区块链快讯',
+        title: '区块链快讯',
         tabBarIcon: ({ focused, tintColor }) => {
             return (
                 <View style={{ width: 30, height: 30 }}>
-                    {focused?(
-                <SvgUri
-                        width="30"
-                        height="30"
-                        svgXmlData={SvgData.blockchain}
+                    {focused ? (
+                        <SvgUri
+                            width="30"
+                            height="30"
+                            svgXmlData={SvgData.blockchain}
 
-                    />):(
-                  <SvgUri
-                        width="30"
-                        height="30"
-                        svgXmlData={SvgData.blockchain_gray}
+                        />) : (
+                            <SvgUri
+                                width="30"
+                                height="30"
+                                svgXmlData={SvgData.blockchain_gray}
 
-                    />
-                    )}
-            </View>
+                            />
+                        )}
+                </View>
 
 
             )
 
         },
+        tabBarOptions: {
+            activeTintColor: StyleSheet.flatten(themeStyles['tab.activeTintColor']).color,
+            inactiveTintColor: StyleSheet.flatten(themeStyles['tab.inactiveTintColor']).color,
+            showIcon: true,
+            showLabel: Platform.OS === 'android' ? false : true,
+            labelStyle: { marginBottom: 5 },
+            indicatorStyle: {
+                backgroundColor: 'transparent'
+            },
+            style: {
+                backgroundColor: StyleSheet.flatten(themeStyles['tab.backgroundColor']).color, borderTopColor: "transparent", shadowColor: 'transparent', elevation: 1,
+            },
+
+        }
     });
 
     constructor(props) {
@@ -156,7 +171,7 @@ export default class BlockChainScreen extends React.Component {
 
 
 
-    _keyExtractor = (item, index) => item.id;
+    _keyExtractor = (item, index) => item.id + '';
     _renderRow = ({ item, index }) => {
 
         var firstRow = index == 0;

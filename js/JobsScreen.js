@@ -41,29 +41,44 @@ var loadErrorCount = 0;
 export default class JobsScreen extends React.Component {
     static navigationOptions = ({ navigation }) => ({
         tabBarLabel: '招聘行情',
+        title: '招聘行情',
         tabBarIcon: ({ focused, tintColor }) => {
             return (
-                <View style={{ width: 30, height: 30,alignItems:'center' }}>
-                    {focused?(
-                <SvgUri
-                        width="26"
-                        height="26"
-                        svgXmlData={SvgData.chair}
+                <View style={{ width: 30, height: 30, alignItems: 'center' }}>
+                    {focused ? (
+                        <SvgUri
+                            width="26"
+                            height="26"
+                            svgXmlData={SvgData.chair}
 
-                    />):(
-                  <SvgUri
-                        width="26"
-                        height="26"
-                        svgXmlData={SvgData.chair_gray}
+                        />) : (
+                            <SvgUri
+                                width="26"
+                                height="26"
+                                svgXmlData={SvgData.chair_gray}
 
-                    />
-                    )}
-            </View>
+                            />
+                        )}
+                </View>
 
 
             )
 
         },
+        tabBarOptions: {
+            activeTintColor: StyleSheet.flatten(themeStyles['tab.activeTintColor']).color,
+            inactiveTintColor: StyleSheet.flatten(themeStyles['tab.inactiveTintColor']).color,
+            showIcon: true,
+            showLabel: Platform.OS === 'android' ? false : true,
+            labelStyle: { marginBottom: 5 },
+            indicatorStyle: {
+                backgroundColor: 'transparent'
+            },
+            style: {
+                backgroundColor: StyleSheet.flatten(themeStyles['tab.backgroundColor']).color, borderTopColor: "transparent", shadowColor: 'transparent', elevation: 1,
+            },
+
+        }
     });
 
     constructor(props) {
@@ -155,7 +170,7 @@ export default class JobsScreen extends React.Component {
 
 
 
-    _keyExtractor = (item, index) => item.id;
+    _keyExtractor = (item, index) => item.id + '';
     _renderRow = ({ item, index }) => {
 
         var firstRow = index == 0;
@@ -175,9 +190,9 @@ export default class JobsScreen extends React.Component {
 
                         <Text ellipsizeMode="tail" numberOfLines={2} style={[styles.title, themeStyles.title]}>{item.jobTitle}</Text>
                         <View style={{ height: 5 }}></View>
-                        <View><Text style={[styles.summary, themeStyles.summary,{fontSize:14}]}>{Object.keys(item.cities).join(',')}等地共更新了 {item.jobCount} 个职位，待遇集中在 {item.salaryLower}-{item.salaryUpper}k，一般要求 {item.experienceLower}-{item.experienceUpper} 年经验</Text></View>
-                        
-                        <Text ellipsizeMode="middle" numberOfLines={1} style={[styles.summary, themeStyles.summary,{marginTop:5,fontSize:11}]}>{item.siteName}{item.siteName && item.siteName.length > 0 && item.authorName && item.authorName.length > 0 ? ' / ' : ''}{item.authorName}{(item.siteName && item.siteName.length > 0) || (item.authorName && item.authorName.length > 0) ? '   ' : ''}{moment(item.createdAt).format('LL')}</Text>
+                        <View><Text style={[styles.summary, themeStyles.summary, { fontSize: 14 }]}>{Object.keys(item.cities).join(',')}等地共更新了 {item.jobCount} 个职位，待遇集中在 {item.salaryLower}-{item.salaryUpper}k，一般要求 {item.experienceLower}-{item.experienceUpper} 年经验</Text></View>
+
+                        <Text ellipsizeMode="middle" numberOfLines={1} style={[styles.summary, themeStyles.summary, { marginTop: 5, fontSize: 11 }]}>{item.siteName}{item.siteName && item.siteName.length > 0 && item.authorName && item.authorName.length > 0 ? ' / ' : ''}{item.authorName}{(item.siteName && item.siteName.length > 0) || (item.authorName && item.authorName.length > 0) ? '   ' : ''}{moment(item.createdAt).format('LL')}</Text>
 
                     </View>
                 </View>
