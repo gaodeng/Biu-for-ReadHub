@@ -115,7 +115,7 @@ const MyApp = TabNavigator({
 }, {
     // initialRouteName: 'Jobs',
     lazy: true,
-    ...tabBarConfiguration,
+    // ...tabBarConfiguration,
     tabBarPosition: 'bottom',
     // swipeEnabled: false,
     // animationEnabled: true, 
