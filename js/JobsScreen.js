@@ -36,7 +36,7 @@ import bus from './bus'
 import store from './store'
 import SvgUri from 'react-native-svg-uri';
 import SvgData from './svg_data'
-var BLOCKCHAIN_ARTICLES = 'https://api.readhub.me/jobs';
+var BLOCKCHAIN_ARTICLES = 'https://api.readhub.cn/jobs';
 var loadErrorCount = 0;
 export default class JobsScreen extends React.Component {
     static navigationOptions = ({ navigation }) => ({
@@ -69,7 +69,7 @@ export default class JobsScreen extends React.Component {
             activeTintColor: StyleSheet.flatten(themeStyles['tab.activeTintColor']).color,
             inactiveTintColor: StyleSheet.flatten(themeStyles['tab.inactiveTintColor']).color,
             showIcon: true,
-            showLabel: Platform.OS === 'android' ? false : true,
+            showLabel: false,
             labelStyle: { marginBottom: 5 },
             indicatorStyle: {
                 backgroundColor: 'transparent'

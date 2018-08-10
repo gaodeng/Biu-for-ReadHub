@@ -51,7 +51,7 @@ var swipeoutBtns = [
 
 ]
 
-var TOPIC_API = 'https://api.readhub.me/topic';
+var TOPIC_API = 'https://api.readhub.cn/topic';
 
 
 
@@ -74,7 +74,7 @@ export default class MyHomeScreen extends React.Component {
             activeTintColor: StyleSheet.flatten(themeStyles['tab.activeTintColor']).color,
             inactiveTintColor: StyleSheet.flatten(themeStyles['tab.inactiveTintColor']).color,
             showIcon: true,
-            showLabel: Platform.OS === 'android' ? false : true,
+            showLabel: false,
             labelStyle: { marginBottom: 5 },
             indicatorStyle: {
                 backgroundColor: 'transparent'
@@ -240,7 +240,7 @@ export default class MyHomeScreen extends React.Component {
                                     onPress={() => {
                                         console.log("You tapped the button!");
                                         // this.onPressItem(item)
-                                        var url = `https://readhub.me/topic/${item.id}`;
+                                        var url = `https://readhub.cn/topic/${item.id}`;
                                         let shareOptions = {
                                             title: item.title,
                                             message: `${item.title} - ${url}`,

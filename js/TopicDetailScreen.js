@@ -34,7 +34,7 @@ import moment from 'moment'
 import bus from './bus'
 import store from './store'
 
-var TOPIC_DETAIL_API = 'https://api.readhub.me/topic';
+var TOPIC_DETAIL_API = 'https://api.readhub.cn/topic';
 
 
 export default class TechArticlesScreen extends React.Component {

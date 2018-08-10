@@ -176,8 +176,8 @@ const RootStack = StackNavigator({
         // alert(JSON.stringify(navigation))
         let titleText=<Text style={{ color: '#D3DCE6',}}>  -  {title}</Text>
         return (<View style={[{ backgroundColor: 'white', position: 'absolute', left: Platform.OS === 'ios' ? -50 : 20, top: Platform.OS === 'ios' ? 8 : 14, flex: 1, flexDirection: 'row', alignItems: 'center' }, themeStyles.headerStyle]}>
-          <Text numberOfLines={1} style={{ color: '#20A0FF', fontWeight: '600', fontSize: 22, textAlign: 'left' }}>READ</Text><Text style={{ fontSize: 22, color: '#D3DCE6', }}>HUB</Text>
-          {Platform.OS==='android'?titleText:null}
+          <Text numberOfLines={1} style={{ color: '#20A0FF', fontWeight: '800', fontSize: 18, textAlign: 'left' }}>READ</Text><Text style={{ fontWeight: '800', fontSize: 18, color: '#D3DCE6', }}>HUB</Text>
+          {titleText}
         </View>)
       },
       // header:null,

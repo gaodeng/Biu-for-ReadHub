@@ -35,7 +35,7 @@ import bus from './bus'
 import store from './store'
 import Share, { ShareSheet } from 'react-native-share';
 
-var TECH_NEWS_API = 'https://api.readhub.me/news';
+var TECH_NEWS_API = 'https://api.readhub.cn/news';
 
 var loadErrorCount = 0;
 export default class TechArticlesScreen extends React.Component {
@@ -50,7 +50,7 @@ export default class TechArticlesScreen extends React.Component {
         activeTintColor: StyleSheet.flatten(themeStyles['tab.activeTintColor']).color,
         inactiveTintColor: StyleSheet.flatten(themeStyles['tab.inactiveTintColor']).color,
         showIcon: true,
-        showLabel: Platform.OS === 'android' ? false : true,
+        showLabel: false,
         labelStyle: { marginBottom: 5 },
         indicatorStyle: {
           backgroundColor: 'transparent'
