@@ -210,7 +210,7 @@ export default class TechArticlesScreen extends React.Component {
                 pressColor={StyleSheet.flatten(themeStyles['touchablePressColor']).color}
                 borderless={false}
                 useForeground={true}
-                style={[themeStyles.listRow,{ borderRadius: 15,  margin: 15, }]}
+                style={[themeStyles.listRow,{ borderRadius: 15,  margin: 15,overflow:'hidden' }]}
                 onPress={() => {
                     console.log("You tapped the button!");
                     let item = this.state.topicData
