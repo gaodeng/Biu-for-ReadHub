@@ -64,7 +64,10 @@ theme.add({
     },
     'tab.backgroundColor': {
         color: colors.darkBG1
-    }
+    },
+    'tab.borderTopColor': {
+        color: '#1b2936'
+    },
 
 }, 'dark')
 
@@ -114,7 +117,10 @@ theme.add({
     },
     'tab.backgroundColor': {
         color: '#FFFFFF'
-    }
+    },
+    'tab.borderTopColor': {
+        color: '#F0F0F0'
+    },
 })
 
 

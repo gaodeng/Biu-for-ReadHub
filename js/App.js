@@ -188,7 +188,7 @@ const RootStack = StackNavigator({
         }}
 
       ><View style={{ margin: 10, marginRight: 15 }}><Icon2 name="md-settings" size={22} style={{ color: '#8492A6' }}></Icon2></View></TouchableOpacity>),
-      headerStyle: { backgroundColor: '#ffffff', borderBottomColor: "transparent", shadowColor: 'transparent', elevation: 0, ...StyleSheet.flatten(themeStyles.headerStyle) },
+      headerStyle: { backgroundColor: '#ffffff', borderBottomColor: StyleSheet.flatten(themeStyles['tab.borderTopColor']).color, shadowColor: 'transparent', elevation: 0, ...StyleSheet.flatten(themeStyles.headerStyle) },
       headerTitleStyle: { ...StyleSheet.flatten(themeStyles.headerTitleStyle) },
       headerBackTitleStyle: { ...StyleSheet.flatten(themeStyles.headerTitleStyle) },
       headerTintColor: StyleSheet.flatten(themeStyles.headerTitleStyle).color,

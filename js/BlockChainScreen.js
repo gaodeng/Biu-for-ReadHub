@@ -76,7 +76,7 @@ export default class BlockChainScreen extends React.Component {
                 backgroundColor: 'transparent'
             },
             style: {
-                backgroundColor: StyleSheet.flatten(themeStyles['tab.backgroundColor']).color, borderTopColor: "transparent", shadowColor: 'transparent', elevation: 1,
+                backgroundColor: StyleSheet.flatten(themeStyles['tab.backgroundColor']).color, borderTopColor: StyleSheet.flatten(themeStyles['tab.borderTopColor']).color, shadowColor: 'transparent', elevation: 1,
             },
 
         }

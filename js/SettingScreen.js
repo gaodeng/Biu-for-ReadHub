@@ -99,7 +99,7 @@ export default class SettingScreen extends React.Component {
             headerTitleStyle: { ...StyleSheet.flatten(themeStyles.headerTitleStyle) },
             headerBackTitleStyle: { ...StyleSheet.flatten(themeStyles.headerTitleStyle) },
             headerTintColor: StyleSheet.flatten(themeStyles.headerTitleStyle).color,
-            headerStyle: { backgroundColor: '#ffffff', borderBottomColor: "transparent", shadowColor: 'transparent', elevation: 0, ...StyleSheet.flatten(themeStyles.headerStyle) },
+            headerStyle: { backgroundColor: '#ffffff', borderBottomColor: StyleSheet.flatten(themeStyles['tab.borderTopColor']).color, shadowColor: 'transparent', elevation: 0, ...StyleSheet.flatten(themeStyles.headerStyle) },
         }
     };
 
