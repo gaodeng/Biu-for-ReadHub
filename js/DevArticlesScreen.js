@@ -174,30 +174,7 @@ export default class DevArticlesScreen extends React.Component {
                         <View style={{ flexDirection: 'row', alignItems: 'center', alignContent: 'center', }}>
                             <Text ellipsizeMode="middle" numberOfLines={1} style={[styles.summary, themeStyles.summary]}>{item.siteName}{item.siteName && item.siteName.length > 0 && item.authorName && item.authorName.length > 0 ? ' / ' : ''}{item.authorName}{(item.siteName && item.siteName.length > 0) || (item.authorName && item.authorName.length > 0) ? '   ' : ''}{moment(item.publishDate).fromNow()}</Text>
                             {/* <View style={{flex:1}}></View> */}
-                            <TouchableHighlight activeOpacity={.9} underlayColor={'#333333'}
-                                style={{ borderRadius: 6 }}
-                                onPress={() => {
-                                    console.log("You tapped the button!");
-                                    // this.onPressItem(item)
-                                    var url = item.url;
-                                    let shareOptions = {
-                                        title: item.title,
-                                        message: `${item.title} - ${url}`,
-                                        url: url,
-                                        subject: "Share Link" //  for email
-                                    };
-
-
-                                    Share.open(shareOptions).catch((err) => { err && console.log(err); });
-                                }}
-
-                            >
-
-                                <View style={{ flexDirection: 'row', alignItems: 'center', margin: 8 }}>
-                                    <Icon name="share" size={16} style={[styles.icon, { color: '#99A9BF', }]}></Icon>
-
-                                </View>
-                            </TouchableHighlight>
+                            
                         </View>
                     </View>
                 </View>

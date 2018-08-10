@@ -68,6 +68,9 @@ theme.add({
     'tab.borderTopColor': {
         color: '#1b2936'
     },
+    'touchablePressColor':{
+        color:'rgba(0, 0, 0, .3)',
+    }
 
 }, 'dark')
 
@@ -121,6 +124,9 @@ theme.add({
     'tab.borderTopColor': {
         color: '#F0F0F0'
     },
+    'touchablePressColor':{
+        color:'rgba(0, 0, 0, .1)'
+    }
 })
 
 

@@ -21,7 +21,7 @@ import {
     StatusBar,
     FlatList
 } from 'react-native';
-
+import Share, { ShareSheet } from 'react-native-share';
 import { StackNavigator, TabNavigator, TabBarBottom, NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Feather';
 import Icon2 from 'react-native-vector-icons/Ionicons';
@@ -33,6 +33,7 @@ import Swipeout from 'react-native-swipeout';
 import moment from 'moment'
 import bus from './bus'
 import store from './store'
+import TouchableItem from './TouchableItem'
 
 var TOPIC_DETAIL_API = 'https://api.readhub.cn/topic';
 
@@ -203,22 +204,55 @@ export default class TechArticlesScreen extends React.Component {
         )
     }
 
+    _renderShareButton() {
+        return (
+            <TouchableItem
+                pressColor={StyleSheet.flatten(themeStyles['touchablePressColor']).color}
+                borderless={false}
+                useForeground={true}
+                style={[themeStyles.listRow,{ borderRadius: 15,  margin: 15, }]}
+                onPress={() => {
+                    console.log("You tapped the button!");
+                    let item = this.state.topicData
+                    var url = `https://readhub.cn/topic/${item.id}`;
+                    let shareOptions = {
+                        title: item.title,
+                        message: `${item.title} - ${url}`,
+                        url: url,
+                        subject: "Share Link" //  for email
+                    };
+
+
+                    Share.open(shareOptions).catch((err) => { err && console.log(err); });
+                }}
+
+
+            >
+
+                <View style={{ flexDirection: 'row', alignItems: 'center', margin: 15, justifyContent: "center" }}>
+                    <Icon name="share" size={16} style={[styles.icon, { color: '#99A9BF', }]}></Icon>
+                    <Text style={{color:'#20A0FF'}}> 分享</Text>
+                </View>
+            </TouchableItem>
+        )
+    }
+
 
     _renderContent() {
 
-        if(this.state.refreshing||this.state.error){
+        if (this.state.refreshing || this.state.error) {
             return null;
         }
 
         return (
             <ScrollView
-                style={[styles.listView, themeStyles.listView,themeStyles.darkBG,]}
+                style={[styles.listView, themeStyles.listView, themeStyles.darkBG,]}
             >
                 <Text style={[{ padding: 20, lineHeight: 24, fontSize: 18 }, themeStyles.title]}>{this.state.topicData.title}</Text>
                 <Text style={[{ paddingLeft: 20, paddingRight: 15, lineHeight: 24 }, themeStyles.summary]}>{this.state.topicData.summary}</Text>
-
                 {this._renderNewsSource()}
                 {this._renderTimeline()}
+                {this._renderShareButton()}
             </ScrollView>
         )
     }
