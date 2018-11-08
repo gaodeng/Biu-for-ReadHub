@@ -10,7 +10,7 @@ ReadHub iOS / Android 客户端
 
 
 #### iOS 版本
- 打开 [https://testflight.apple.com/join/3TZPsNJF](https://testflight.apple.com/join/3TZPsNJF) 申请 TestFlight 版本 .
+ 打开 [https://testflight.apple.com/join/3TZPsNJF](https://testflight.apple.com/join/3TZPsNJF) 安装
 
 ![](https://github.com/gaodeng/Biu-for-ReadHub/raw/master/mockup.png)
 
